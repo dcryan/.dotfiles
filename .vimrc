@@ -241,10 +241,11 @@ let g:ale_javascript_prettier_use_local_config = 1
 
 " SHORTCUTS:
 
-" Source the vimrc file:
-"nnoremap <Leader><CR> :so ~/.config/nvim/init.vim<CR>
+" Edit/Source the vimrc file:
 nnoremap <Leader>vr :so $MYVIMRC<CR>
-nnoremap <Leader>ve :tabnew $MYVIMRC<CR>
+"nnoremap <Leader>ve :tabnew $MYVIMRC<CR>
+nnoremap <Leader>ve :tabnew $HOME/Development/dotfiles/.vimrc<CR>
 
 " Format JSON
 nnoremap Gf :%!jq .<CR>
+
