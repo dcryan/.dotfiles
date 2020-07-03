@@ -11,6 +11,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'dense-analysis/ale'
 Plug 'airblade/vim-gitgutter'
+Plug 'mhinz/vim-startify'
 
 " Colors
 Plug 'gruvbox-community/gruvbox'
@@ -45,7 +46,6 @@ let g:gruvbox_contrast_dark = 'hard'
 
 set nocompatible       " Ignore Vi compatibility
 set mouse=a            " mouse control in all modes
-set formatoptions+=j   " remove comment leaders when joining lines
 set backspace=2        " Enable Backspace
 set smartindent        " indent by to syntax/style of code. Use w/ autoindent
 set autoindent         " apply the indentation of the current line to the next
@@ -54,6 +54,7 @@ set tabstop=2          " number of visual spaces per tab
 set softtabstop=2      " number of spaces in tab when editing
 set expandtab smarttab " tab to spaces
 set number             " show line numbers
+set relativenumber     " show relative line numbers
 set nowrap             " Don't line wrap
 set cursorline         " highlight current line
 set showmatch          " highlight matching [{()}]
@@ -74,6 +75,7 @@ set listchars=tab:>▸,space:·,nbsp:_ " Only show Tabs and Spaces
 set nolist             " List mode: Hide/Show whitespace listchars
 set noswapfile         " Don't create swapfile when executing commands
 set splitbelow         " Horizontal splits open below
+set splitright         " Vertical splits open right
 set nobackup           " Don't save backups
 set undofile           " Save undofiles for each file
 set undodir=~/.vim/undodir " Where the undofiles are saved (needs to be created)
@@ -154,6 +156,7 @@ let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
 nnoremap \html :-1read $HOME/.vim/snippets/skeleton.html<CR>
 nnoremap clog <ESC>iconsole.log("");<ESC>==$hhi
+inoremap clog console.log("");<ESC>hhi
 
 
 
@@ -239,6 +242,12 @@ let g:ale_javascript_prettier_use_local_config = 1
 
 
 
+" Startify:
+" Keep the same directory, most likely in a directory with .eslint
+let g:startify_change_to_dir = 0
+
+
+
 " SHORTCUTS:
 
 " Edit/Source the vimrc file:
@@ -247,5 +256,9 @@ nnoremap <Leader>vr :so $MYVIMRC<CR>
 nnoremap <Leader>ve :tabnew $HOME/Development/dotfiles/.vimrc<CR>
 
 " Format JSON
-nnoremap Gf :%!jq .<CR>
+nnoremap <Leader>F :%!jq .<CR>
+
+" hide hilighted words
+nnoremap <Leader>h :nohl<CR>
+
 
