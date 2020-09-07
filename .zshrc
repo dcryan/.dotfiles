@@ -23,6 +23,10 @@ export JAVA_HOME="$(/usr/libexec/java_home)"
 # Mono install for YCM (Brew Package)
 export MONO_GAC_PREFIX="/usr/local"
 
+# Client Profiles
+source ~/.profile.spraysync-android
+source ~/.profile.idearoom
+
 # -- NVM
 #
 # For brew, at least
@@ -56,7 +60,22 @@ source $ZSH/oh-my-zsh.sh
 
 alias tree="tree --filelimit 20 --dirsfirst -C -I 'node_modules'"
 alias weather='curl -4 http://wttr.in/Boise'
+alias vim="nvim"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
+
+# tabtab source for serverless package
+# uninstall by removing these lines or running `tabtab uninstall serverless`
+[[ -f /Users/danielryan/Development/idearoom/stanley/carportview/server/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/danielryan/Development/idearoom/stanley/carportview/server/node_modules/tabtab/.completions/serverless.zsh
+# tabtab source for sls package
+# uninstall by removing these lines or running `tabtab uninstall sls`
+[[ -f /Users/danielryan/Development/idearoom/stanley/carportview/server/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/danielryan/Development/idearoom/stanley/carportview/server/node_modules/tabtab/.completions/sls.zsh
+# tabtab source for slss package
+# uninstall by removing these lines or running `tabtab uninstall slss`
+[[ -f /Users/danielryan/Development/idearoom/stanley/api/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/danielryan/Development/idearoom/stanley/api/node_modules/tabtab/.completions/slss.zsh
+
+
+# direnv setup
+eval "$(direnv hook zsh)"

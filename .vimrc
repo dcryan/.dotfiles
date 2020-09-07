@@ -2,7 +2,6 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'scrooloose/nerdcommenter'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -10,8 +9,10 @@ Plug 'tpope/vim-fugitive'
 Plug 'sheerun/vim-polyglot'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'dense-analysis/ale'
-Plug 'airblade/vim-gitgutter'
-Plug 'mhinz/vim-startify'
+Plug 'vim-airline/vim-airline'
+Plug 'mattn/emmet-vim'
+Plug 'ap/vim-css-color'
+Plug 'vimwiki/vimwiki'
 
 " Colors
 Plug 'gruvbox-community/gruvbox'
@@ -26,20 +27,13 @@ call plug#end(  )
 syntax on
 filetype plugin indent on
 
-" Set CursorShape for each mode
-"let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-"let &t_SR = "\<Esc>]50;CursorShape=2\x7"
-"let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-
 " needs to be above `colorscheme`
-if (has("termguicolors"))
+if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
-  set termguicolors
 endif
 
 " Theme and Styling
-set t_Co=256
 set background=dark    " All Black Everything
 colorscheme gruvbox    " DOPE colorscheme
 let g:gruvbox_contrast_dark = 'hard'
@@ -80,49 +74,11 @@ set nobackup           " Don't save backups
 set undofile           " Save undofiles for each file
 set undodir=~/.vim/undodir " Where the undofiles are saved (needs to be created)
 
+
+
 " Color the 81st Character
-highlight ColorColumn ctermbg=magenta
+highlight ColorColumn ctermbg=0 guibg=lightgrey
 call matchadd('ColorColumn', '\%81v', 100)
-
-
-
-" StatusLine:
-set laststatus=2       " Always show the status line
-
-function! GitBranch()
-  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
-endfunction
-
-function! StatuslineGit()
-  let l:branchname = GitBranch()
-  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
-endfunction
-
-function! GitInfo()
-  let git = fugitive#head()
-  if git != ''
-    return ' '.fugitive#head()
-  else
-    return ''
-endfunction
-
-" Check this out
-" https://gabri.me/blog/diy-vim-statusline
-
-set statusline=
-set statusline+=%#PmenuSel#
-set statusline+=%{StatuslineGit()}
-set statusline+=%#LineNr#
-set statusline+=\ %f
-set statusline+=%m\
-set statusline+=%=
-set statusline+=%#CursorColumn#
-set statusline+=\ %y
-set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
-set statusline+=\[%{&fileformat}\]
-set statusline+=\ %p%%
-set statusline+=\ %l:%c
-set statusline+=\ 
 
 
 
@@ -179,7 +135,7 @@ vnoremap <C-k> :m '<-2<CR>gv=gv
 " NERDTree Config:
 
 nmap <LEADER>n :NERDTreeToggle<CR>
-nmap <LEADER>r :NERDTreeFind<CR>
+nmap <LEADER>m :NERDTreeFind<CR>
 
 " autoquit if only nerdtree is open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -188,6 +144,8 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 
 " FZF Config:
 nmap <C-p> :GFiles<CR>
+let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
+let $FZF_DEFAULT_OPTS='--reverse'
 
 
 
@@ -225,6 +183,9 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " Use <cr> to confirm completion
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
+" Global Search
+nnoremap <Leader>f :CocSearch <C-R><C-W>
+
 
 
 " ALE Linting:
@@ -242,9 +203,12 @@ let g:ale_javascript_prettier_use_local_config = 1
 
 
 
-" Startify:
-" Keep the same directory, most likely in a directory with .eslint
-let g:startify_change_to_dir = 0
+" VimWiki:
+let g:vimwiki_list = [{
+      \   'path': '~/Development/vimwiki/',
+      \   'syntax': 'markdown',
+      \   'ext': '.md'
+      \ }]
 
 
 
@@ -259,6 +223,28 @@ nnoremap <Leader>ve :tabnew $HOME/Development/dotfiles/.vimrc<CR>
 nnoremap <Leader>F :%!jq .<CR>
 
 " hide hilighted words
-nnoremap <Leader>h :nohl<CR>
+nnoremap <Leader>hh :nohl<CR>
 
 
+" Highlight all instances of word under cursor, when idle.
+" Useful when studying strange source code.
+" Type <Leader>z to toggle highlighting on/off.
+nnoremap <Leader>z :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
+function! AutoHighlightToggle()
+  let @/ = ''
+  if exists('#auto_highlight')
+    au! auto_highlight
+    augroup! auto_highlight
+    setl updatetime=4000
+    echo 'Highlight current word: off'
+    return 0
+  else
+    augroup auto_highlight
+      au!
+      au CursorHold * let @/ = '\V\<'.escape(expand('<cword>'), '\').'\>'
+    augroup end
+    setl updatetime=500
+    echo 'Highlight current word: ON'
+    return 1
+  endif
+endfunction
