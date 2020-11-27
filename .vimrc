@@ -1,6 +1,14 @@
 call plug#begin('~/.vim/plugged')
 
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Neovim lsp Plugins
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/completion-nvim'
+
+" telescope requirements...
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-lua/telescope.nvim'
+
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'scrooloose/nerdcommenter'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -13,9 +21,13 @@ Plug 'vim-airline/vim-airline'
 Plug 'mattn/emmet-vim'
 Plug 'ap/vim-css-color'
 Plug 'vimwiki/vimwiki'
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'sirver/ultisnips'
+"Plug 'honza/vim-snippets'
 
 " Colors
 Plug 'gruvbox-community/gruvbox'
+Plug 'dracula/vim', {'as': 'dracula'}
 
 call plug#end(  )
 
@@ -34,9 +46,9 @@ if exists('+termguicolors')
 endif
 
 " Theme and Styling
-set background=dark    " All Black Everything
 colorscheme gruvbox    " DOPE colorscheme
 let g:gruvbox_contrast_dark = 'hard'
+set background=dark    " All Black Everything
 
 set nocompatible       " Ignore Vi compatibility
 set mouse=a            " mouse control in all modes
@@ -61,7 +73,9 @@ set noshowmode         " Hides the mode in the status line
 set hidden             " Disables confirmation of '!' on exit (e.g. :q!)
 set visualbell         " Displays bell and silences the sound
 set nrformats-=octal   " Removes octal from increment/decrement functionality
-set omnifunc=syntaxcomplete#Complete " Enable Omni Completion
+set completeopt=menuone,noinsert,noselect " completion-nvim
+set shortmess+=c       " completion-nvim
+"set omnifunc=syntaxcomplete#Complete " (disabled because of completion-nvim) Enable Omni Completion
 set lazyredraw         " Lazy redraws the screen
 set scrolloff=3        " Top & Bottom scroll starts X spaces away
 set sidescrolloff=3    " Left & Right scroll starts X spaces away
@@ -81,6 +95,9 @@ highlight ColorColumn ctermbg=0 guibg=lightgrey
 call matchadd('ColorColumn', '\%81v', 100)
 
 
+
+"Python Provider
+let g:python3_host_prog = '/usr/bin/python3'
 
 " FINDING FILES:
 
@@ -109,7 +126,6 @@ let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
 
 " SNIPPETS:
-
 nnoremap \html :-1read $HOME/.vim/snippets/skeleton.html<CR>
 nnoremap clog <ESC>iconsole.log("");<ESC>==$hhi
 inoremap clog console.log("");<ESC>hhi
@@ -144,23 +160,52 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 
 " FZF Config:
 nmap <C-p> :GFiles<CR>
+nnoremap <Leader>f :Rg <C-R><C-W>
 let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
 let $FZF_DEFAULT_OPTS='--reverse'
 
 
 
+" Completion Nvim
+let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+lua require'lspconfig'.tsserver.setup{ on_attach=require'completion'.on_attach }
+
+
+
+" Nvim LSP
+nnoremap <leader>gd :lua vim.lsp.buf.definition()<CR>
+nnoremap <leader>gi :lua vim.lsp.buf.implementation()<CR>
+nnoremap <leader>gsh :lua vim.lsp.buf.signature_help()<CR>
+nnoremap <leader>gr :lua vim.lsp.buf.references()<CR>
+nnoremap <leader>rr :lua vim.lsp.buf.rename()<CR>
+nnoremap <leader>gh :lua vim.lsp.buf.hover()<CR>
+nnoremap <leader>gca :lua vim.lsp.buf.code_action()<CR>
+nnoremap <leader>gsd :lua vim.lsp.util.show_line_diagnostics(); vim.lsp.util.show_line_diagnostics()<CR>
+
+nnoremap <leader>gws :lua vim.lsp.buf.workspace_symbol()<CR>
+nnoremap <leader>gf :lua vim.lsp.buf.formatting()<CR>
+
+nnoremap <leader>pw :lua require('telescope.builtin').grep_string { search = vim.fn.expand("<cword>") }<CR>
+nnoremap <leader>pb :lua require('telescope.builtin').buffers()<CR>
+nnoremap <leader>vh :lua require('telescope.builtin').help_tags()<CR>
+nnoremap <leader>ps :lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For > ")})<CR>
+"nnoremap <C-p> :lua require('telescope.builtin').git_files(require('telescope.themes').get_dropdown())<CR>
+
+
+
 " COC Configs:
 " GoTo Code Navigation:
-nmap <leader>gd <Plug>(coc-definition)
-nmap <leader>gy <Plug>(coc-type-definition)
-nmap <leader>gi <Plug>(coc-implementation)
-nmap <leader>gr <Plug>(coc-references)
-nmap <leader>rr <Plug>(coc-rename)
-nmap <leader>g[ <Plug>(coc-diagnostic-prev)
-nmap <leader>g] <Plug>(coc-diagnostic-next)
-nmap <silent> <leader>gp <Plug>(coc-diagnostic-prev)
-nmap <silent> <leader>gn <Plug>(coc-diagnostic-next)
-nnoremap <leader>cr :CocRestart
+"nmap <leader>gd <Plug>(coc-definition)
+"nmap <leader>gy <Plug>(coc-type-definition)
+"nmap <leader>gi <Plug>(coc-implementation)
+"nmap <leader>gr <Plug>(coc-references)
+"nmap <leader>rr <Plug>(coc-rename)
+"nmap <leader>g[ <Plug>(coc-diagnostic-prev)
+"nmap <leader>g] <Plug>(coc-diagnostic-next)
+"nmap <silent> <leader>gp <Plug>(coc-diagnostic-prev)
+"nmap <silent> <leader>gn <Plug>(coc-diagnostic-next)
+"nnoremap <leader>cr :CocRestart
+"nnoremap <Leader>f :CocSearch <C-R><C-W>
 
 " use <tab> for trigger completion and navigate to the next complete item
 function! s:check_back_space() abort
@@ -173,8 +218,8 @@ inoremap <silent><expr> <Tab>
   \ <SID>check_back_space() ? "\<Tab>" :
   \ coc#refresh()
 
-" use <c-space>for trigger completion
-inoremap <silent><expr> <c-space> coc#refresh()
+"" use <c-space>for trigger completion
+"inoremap <silent><expr> <c-space> coc#refresh()
 
 " Use <Tab> and <S-Tab> to navigate the completion list
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -182,9 +227,6 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
 " Use <cr> to confirm completion
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-
-" Global Search
-nnoremap <Leader>f :CocSearch <C-R><C-W>
 
 
 
@@ -209,6 +251,41 @@ let g:vimwiki_list = [{
       \   'syntax': 'markdown',
       \   'ext': '.md'
       \ }]
+
+
+
+"" UltiSnips:
+"" Trigger configuration.
+"" We'll trigger with Coc-Snippets
+"" let g:UltiSnipsExpandTrigger="<S-tab>"
+"" let g:UltiSnipsJumpForwardTrigger="<c-b>"
+"" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
+
+"" If you want :UltiSnipsEdit to split your window.
+"let g:UltiSnipsEditSplit="vertical"
+
+"let g:UltiSnipsSnippetDirectories=['~/Development/vim-snippets']
+
+
+
+"" Coc-snippets
+"" Use <C-l> for trigger snippet expand.
+"imap <C-l> <Plug>(coc-snippets-expand)
+
+"" Use <C-j> for select text for visual placeholder of snippet.
+"vmap <C-j> <Plug>(coc-snippets-select)
+
+"" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+"let g:coc_snippet_next = '<c-j>'
+
+"" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+"let g:coc_snippet_prev = '<c-k>'
+
+"" Use <C-j> for both expand and jump (make expand higher priority.)
+"imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+"" Use <leader>x for convert visual selected code to snippet
+"xmap <leader>x  <Plug>(coc-convert-snippet)
 
 
 
