@@ -1,81 +1,10 @@
-# Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
-# Initialization code that may require console input (password prompts, [y/n]
-# confirmations, etc.) must go above this block; everything else may go below.
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# Add `~/bin` to the `$PATH`
+export PATH="$HOME/bin:$PATH";
 
-export PATH=$HOME/bin:$PATH
-export PATH=/usr/bin:$PATH
-export PATH=/usr/local/bin:$PATH
-export PATH=/usr/local/sbin:$PATH
-export PATH=/usr/local/mysql/bin:$PATH
-export PATH=/usr/local/opt/ruby/bin:$PATH
-
-# Brew Mysql (Remove after Avanoo)
-export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
-
-# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
-
-export JAVA_HOME="$(/usr/libexec/java_home)"
-
-# Mono install for YCM (Brew Package)
-export MONO_GAC_PREFIX="/usr/local"
-
-# Client Profiles
-source ~/.profile.spraysync-android
-source ~/.profile.idearoom
-
-# -- NVM
-#
-# For brew, at least
-
-# NVM Stuff
-export NVM_DIR="$HOME/.nvm"
-. "$(brew --prefix nvm)/nvm.sh"
-#
-# -- end of NVM
-
-# Home Brew - Z
-. $(brew --prefix)/etc/profile.d/z.sh
-# end of Home Brew - Z
-
-# Path to your oh-my-zsh installation.
-export ZSH="/Users/danielryan/.oh-my-zsh"
-
-ZSH_THEME="powerlevel10k/powerlevel10k"
-
-plugins=(
-  git
-  docker
-  docker-compose
-  zsh-autosuggestions
-  zsh-syntax-highlighting
-)
-
-source $ZSH/oh-my-zsh.sh
-
-# User configuration
-
-alias tree="tree --filelimit 20 --dirsfirst -C -I 'node_modules'"
-alias weather='curl -4 http://wttr.in/Boise'
-alias vim="nvim"
-
-# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
-
-
-# tabtab source for serverless package
-# uninstall by removing these lines or running `tabtab uninstall serverless`
-[[ -f /Users/danielryan/Development/idearoom/stanley/carportview/server/node_modules/tabtab/.completions/serverless.zsh ]] && . /Users/danielryan/Development/idearoom/stanley/carportview/server/node_modules/tabtab/.completions/serverless.zsh
-# tabtab source for sls package
-# uninstall by removing these lines or running `tabtab uninstall sls`
-[[ -f /Users/danielryan/Development/idearoom/stanley/carportview/server/node_modules/tabtab/.completions/sls.zsh ]] && . /Users/danielryan/Development/idearoom/stanley/carportview/server/node_modules/tabtab/.completions/sls.zsh
-# tabtab source for slss package
-# uninstall by removing these lines or running `tabtab uninstall slss`
-[[ -f /Users/danielryan/Development/idearoom/stanley/api/node_modules/tabtab/.completions/slss.zsh ]] && . /Users/danielryan/Development/idearoom/stanley/api/node_modules/tabtab/.completions/slss.zsh
-
-
-# direnv setup
-eval "$(direnv hook zsh)"
+# Load the shell dotfiles, and then some:
+# * ~/.path can be used to extend `$PATH`.
+# * ~/.extra can be used for other settings you don’t want to commit.
+for file in ~/.{path,exports,aliases,functions,extra}; do
+  [ -r "$file" ] && [ -f "$file" ] && source "$file";
+  done;
+  unset file;
