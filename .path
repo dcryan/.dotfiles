@@ -5,8 +5,12 @@ export PATH=/usr/local/sbin:$PATH
 export PATH=/usr/local/mysql/bin:$PATH
 export PATH=/usr/local/opt/ruby/bin:$PATH
 
+# Used by brew `coreutils`
+export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+
 # Brew Mysql (Remove after Avanoo)
 export PATH="/usr/local/opt/mysql@5.7/bin:$PATH"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+

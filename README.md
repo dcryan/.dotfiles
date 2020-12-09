@@ -8,6 +8,7 @@ blindly use my settings unless you know what that entails. Use at your own risk!
 Inspiration from:
 - [mathiasbyans/dotfiles](https://github.com/mathiasbynens/dotfiles)
 - [webpro/awesome-dotfiles](https://github.com/webpro/awesome-dotfiles)
+- [driesvints/dotfiles](https://github.com/driesvints/dotfiles)
 
 ### Using Git and the bootstrap script
 You can clone the repository wherever you want. (I like to keep it in ~/Projects/dotfiles,

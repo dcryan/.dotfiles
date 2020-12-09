@@ -21,6 +21,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'mattn/emmet-vim'
 Plug 'ap/vim-css-color'
 Plug 'vimwiki/vimwiki'
+Plug 'airblade/vim-gitgutter'
 "Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'sirver/ultisnips'
 "Plug 'honza/vim-snippets'
@@ -99,6 +100,8 @@ call matchadd('ColorColumn', '\%81v', 100)
 "Python Provider
 let g:python3_host_prog = '/usr/bin/python3'
 
+
+
 " FINDING FILES:
 
 " Search down into subfolders
@@ -149,7 +152,6 @@ vnoremap <C-k> :m '<-2<CR>gv=gv
 
 
 " NERDTree Config:
-
 nmap <LEADER>n :NERDTreeToggle<CR>
 nmap <LEADER>m :NERDTreeFind<CR>
 
@@ -166,13 +168,13 @@ let $FZF_DEFAULT_OPTS='--reverse'
 
 
 
-" Completion Nvim
+" Completion Nvim:
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 lua require'lspconfig'.tsserver.setup{ on_attach=require'completion'.on_attach }
 
 
 
-" Nvim LSP
+" Nvim LSP:
 nnoremap <leader>gd :lua vim.lsp.buf.definition()<CR>
 nnoremap <leader>gi :lua vim.lsp.buf.implementation()<CR>
 nnoremap <leader>gsh :lua vim.lsp.buf.signature_help()<CR>
@@ -268,7 +270,7 @@ let g:vimwiki_list = [{
 
 
 
-"" Coc-snippets
+"" Coc Snippets:
 "" Use <C-l> for trigger snippet expand.
 "imap <C-l> <Plug>(coc-snippets-expand)
 
@@ -286,6 +288,12 @@ let g:vimwiki_list = [{
 
 "" Use <leader>x for convert visual selected code to snippet
 "xmap <leader>x  <Plug>(coc-convert-snippet)
+
+
+
+" VIM AIRLINE:
+" Just show the filename (no path) in the tab
+let g:airline#extensions#tabline#fnamemod = ':t'
 
 
 
