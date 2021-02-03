@@ -1,91 +1,105 @@
-# Taps
-tap 'homebrew/cask'
-tap 'homebrew/cask-fonts'
-tap 'teamookla/speedtest'
-tap 'homebrew/bundle'
-
-
-# Binaries
-brew install applesimutils # Used for react native builds
-brew install argon2
-brew install awscli
-brew install bash
-brew install coreutils # Those that come with maxOS are outdated
-brew install direnv
-brew install ffmpeg
-brew install git
-brew install git-lfs
-brew install gmp
-brew install gnupg2
-brew install grep
-brew install jq
-brew install lua
-brew install lynx
-brew install mas # Mac App Store
-brew install openssh
-brew install pkg-config # https://github.com/driesvints/dotfiles/issues/20
-brew install ripgrep
-brew install rlwrap
-brew install speedtest # Ookla Tap
-brew install tree
-brew install vim --with-override-system-vi
-brew install watchman # Used for react native builds
-brew install wget --with-iri
-brew install youtube-dl
-brew install z
-brew install zlib
-
-
-# Development
-brew install php
-brew install yarn
-brew install nvm
-brew install neovim --HEAD
-brew install tmux
-
-
-# Apps
-cask '1password'
-cask 'adobe-creative-cloud'
-cask 'alfred'
-cask 'android-platform-tools'
-cask 'font-fira-code'
-cask 'google-chrome'
-cask 'virtualbox'
-cask 'android-studio'
-cask 'discord'
-cask 'docker'
-cask 'figma'
-cask 'font-hack-nerd-font'
-cask 'gifox'
-cask 'google-cloud-sdk'
-cask 'iterm2'
-cask 'karabiner-elements'
-cask 'keyboard-maestro'
-cask 'logitech-g-hub'
-cask 'mamp'
-cask 'obs'
-cask 'openvpn-connect'
-cask 'postman'
-cask 'qmk-toolbox'
-cask 'slack'
-cask 'spotify'
-cask 'steam'
-cask 'sublime-text'
-cask 'teensy'
-cask 'the-unarchiver'
-cask 'visual-studio-code'
-cask 'vlc'
-cask 'whatsapp'
-cask 'zoom'
-
-
-# Mac App Store
-#mas 'Byword', id: 420212497
-#mas 'Giphy Capture', id: 668208984
-#mas 'Keynote', id: 409183694
-#mas 'Numbers', id: 409203825
-#mas 'Spark', id: 1176895641
-#mas 'Speedtest', id: 1153157709
-#mas 'Things', id: 904280696
-#mas 'Tweetbot', id: 1384080005
+tap "aws/tap"
+tap "homebrew/bundle"
+tap "homebrew/cask"
+tap "homebrew/cask-drivers"
+tap "homebrew/cask-fonts"
+tap "homebrew/core"
+tap "homebrew/services"
+tap "osx-cross/avr"
+tap "px4/px4"
+tap "teamookla/speedtest"
+tap "wix/brew"
+brew "openssl@1.1"
+brew "automake"
+brew "bash"
+brew "bundletool"
+brew "glib"
+brew "python@3.8"
+brew "cmake"
+brew "composer", link: false
+brew "coreutils"
+brew "openldap"
+brew "curl"
+brew "direnv"
+brew "gcc"
+brew "libxml2"
+brew "libpq"
+brew "numpy", link: false
+brew "gdal"
+brew "geoip"
+brew "git"
+brew "git-lfs"
+brew "git-secrets"
+brew "pkg-config"
+brew "unbound"
+brew "gradle"
+brew "harfbuzz"
+brew "httpd"
+brew "inetutils"
+brew "jq"
+brew "libksba"
+brew "libyaml"
+brew "luajit", args: ["HEAD"]
+brew "mas"
+brew "mono"
+brew "neovim", args: ["HEAD"]
+brew "nvm"
+brew "php"
+brew "pipenv"
+brew "redis"
+brew "ripgrep"
+brew "ruby"
+brew "srt"
+brew "tmux"
+brew "tree"
+brew "vim"
+brew "watchman"
+brew "yarn"
+brew "z"
+brew "zlib"
+brew "aws/tap/aws-sam-cli"
+brew "osx-cross/avr/avr-gcc"
+brew "px4/px4/gcc-arm-none-eabi"
+brew "teamookla/speedtest/speedtest"
+brew "wix/brew/applesimutils"
+cask "1password"
+cask "adobe-creative-cloud"
+cask "alfred"
+cask "android-platform-tools"
+cask "android-studio"
+cask "discord"
+cask "docker"
+cask "figma"
+cask "firefox"
+cask "font-fira-code"
+cask "font-hack-nerd-font"
+cask "gifox"
+cask "google-chrome"
+cask "google-cloud-sdk"
+cask "iterm2"
+cask "karabiner-elements"
+cask "keyboard-maestro"
+cask "logitech-g-hub"
+cask "mamp"
+cask "obs"
+cask "openvpn-connect"
+cask "postman"
+cask "qmk-toolbox"
+cask "slack"
+cask "spotify"
+cask "steam"
+cask "streamlabs-obs"
+cask "sublime-text"
+cask "teensy"
+cask "the-unarchiver"
+cask "virtualbox"
+cask "visual-studio-code"
+cask "vlc"
+cask "whatsapp"
+cask "zoom"
+mas "Be Focused Pro", id: 961632517
+mas "BetterSnapTool", id: 417375580
+mas "iMovie", id: 408981434
+mas "Speedtest", id: 1153157709
+mas "Transporter", id: 1450874784
+mas "Xcode", id: 497799835
