@@ -1,23 +1,22 @@
 #!/usr/bin/env bash
 
-cd "$(dirname "${BASH_SOURCE}")";
-
-git pull origin master;
-
 function doIt() {
-	rsync --exclude ".git/" \
-		--exclude ".DS_Store" \
-		--exclude "bootstrap.sh" \
-		--exclude "brew.sh" \
-		--exclude "README.md" \
-		-avh --no-perms . ~;
-	#source ~/.zshrc;
+	ln -s  `pwd`/.aliases ~;
+	ln -s  `pwd`/.exports ~;
+	ln -s  `pwd`/.extra ~;
+	ln -s  `pwd`/.functions ~;
+	ln -s  `pwd`/.path ~;
+	ln -s  `pwd`/.vimrc ~;
+	ln -s  `pwd`/.zshrc ~;
+	ln -s  `pwd`/.tmux.conf ~;
+	ln -s  `pwd`/.gitconfig ~;
+	ln -s  `pwd`/.gitignore_global ~;
 }
 
 if [ "$1" = "--force" -o "$1" = "-f" ]; then
 	doIt;
 else
-	read "REPLY?This may overwrite existing files in your home directory. Are you sure? (y/n) ";
+	read -p "This may overwrite existing files in your home directory. Are you sure? (y/n) " REPLY;
 	echo "";
 	if [[ $REPLY =~ ^[Yy]$ ]]; then
 		doIt;

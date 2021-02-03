@@ -3,14 +3,15 @@ call plug#begin('~/.vim/plugged')
 " Neovim lsp Plugins
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
+Plug 'nvim-lua/diagnostic-nvim'
 
 " telescope requirements...
-Plug 'nvim-lua/popup.nvim'
-Plug 'nvim-lua/plenary.nvim'
-Plug 'nvim-lua/telescope.nvim'
+"Plug 'nvim-lua/popup.nvim'
+"Plug 'nvim-lua/plenary.nvim'
+"Plug 'nvim-lua/telescope.nvim'
 
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-commentary'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
@@ -18,10 +19,7 @@ Plug 'sheerun/vim-polyglot'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'dense-analysis/ale'
 Plug 'vim-airline/vim-airline'
-Plug 'mattn/emmet-vim'
-Plug 'ap/vim-css-color'
-Plug 'vimwiki/vimwiki'
-Plug 'airblade/vim-gitgutter'
+"Plug 'vimwiki/vimwiki'
 "Plug 'neoclide/coc.nvim', {'branch': 'release'}
 "Plug 'sirver/ultisnips'
 "Plug 'honza/vim-snippets'
@@ -49,24 +47,25 @@ endif
 " Theme and Styling
 colorscheme gruvbox    " DOPE colorscheme
 let g:gruvbox_contrast_dark = 'hard'
+let g:gruvbox_italicize_strings = 1
 set background=dark    " All Black Everything
 
 set nocompatible       " Ignore Vi compatibility
-set mouse=a            " mouse control in all modes
+set mouse=a            " Mouse control in all modes
 set backspace=2        " Enable Backspace
-set smartindent        " indent by to syntax/style of code. Use w/ autoindent
-set autoindent         " apply the indentation of the current line to the next
-set shiftwidth=2       " number of spaces when shift indenting
-set tabstop=2          " number of visual spaces per tab
-set softtabstop=2      " number of spaces in tab when editing
-set expandtab smarttab " tab to spaces
-set number             " show line numbers
-set relativenumber     " show relative line numbers
+set smartindent        " Indent by to syntax/style of code. Use w/ autoindent
+set autoindent         " Apply the indentation of the current line to the next
+set shiftwidth=2       " Number of spaces when shift indenting
+set tabstop=2          " Number of visual spaces per tab
+set softtabstop=2      " Number of spaces in tab when editing
+set expandtab smarttab " Tab to spaces
+set number             " Show line numbers
+set relativenumber     " Show relative line numbers
 set nowrap             " Don't line wrap
-set cursorline         " highlight current line
-set showmatch          " highlight matching [{()}]
-set incsearch          " search as characters are entered
-set hlsearch           " highlight matches
+set cursorline         " Highlight current line
+set showmatch          " Highlight matching [{()}]
+set incsearch          " Search as characters are entered
+set hlsearch           " Highlight matches
 set ignorecase         " Ignore case in search
 set smartcase          " Override 'ignorecase' if Capital Letter exists
 set noruler            " Hides line/column in the status line
@@ -100,8 +99,6 @@ call matchadd('ColorColumn', '\%81v', 100)
 "Python Provider
 let g:python3_host_prog = '/usr/bin/python3'
 
-
-
 " FINDING FILES:
 
 " Search down into subfolders
@@ -129,9 +126,8 @@ let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
 
 
 " SNIPPETS:
+
 nnoremap \html :-1read $HOME/.vim/snippets/skeleton.html<CR>
-nnoremap clog <ESC>iconsole.log("");<ESC>==$hhi
-inoremap clog console.log("");<ESC>hhi
 
 
 
@@ -152,6 +148,7 @@ vnoremap <C-k> :m '<-2<CR>gv=gv
 
 
 " NERDTree Config:
+
 nmap <LEADER>n :NERDTreeToggle<CR>
 nmap <LEADER>m :NERDTreeFind<CR>
 
@@ -168,13 +165,13 @@ let $FZF_DEFAULT_OPTS='--reverse'
 
 
 
-" Completion Nvim:
+" Completion Nvim
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 lua require'lspconfig'.tsserver.setup{ on_attach=require'completion'.on_attach }
 
 
 
-" Nvim LSP:
+" Nvim LSP
 nnoremap <leader>gd :lua vim.lsp.buf.definition()<CR>
 nnoremap <leader>gi :lua vim.lsp.buf.implementation()<CR>
 nnoremap <leader>gsh :lua vim.lsp.buf.signature_help()<CR>
@@ -270,7 +267,7 @@ let g:vimwiki_list = [{
 
 
 
-"" Coc Snippets:
+"" Coc-snippets
 "" Use <C-l> for trigger snippet expand.
 "imap <C-l> <Plug>(coc-snippets-expand)
 
@@ -288,12 +285,6 @@ let g:vimwiki_list = [{
 
 "" Use <leader>x for convert visual selected code to snippet
 "xmap <leader>x  <Plug>(coc-convert-snippet)
-
-
-
-" VIM AIRLINE:
-" Just show the filename (no path) in the tab
-let g:airline#extensions#tabline#fnamemod = ':t'
 
 
 
@@ -333,3 +324,6 @@ function! AutoHighlightToggle()
     return 1
   endif
 endfunction
+
+command! Format execute 'lua vim.lsp.buf.formatting()'
+
