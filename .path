@@ -6,9 +6,6 @@ export PATH=/usr/local/sbin:$PATH
 export PATH=/usr/local/mysql/bin:$PATH
 export PATH=/usr/local/opt/ruby/bin:$PATH
 
-# Used for Cocoa Pods
-export PATH=/Users/danielryan/.gem/ruby/2.7.0/bin:$PATH
-
 # Used by brew `coreutils`
 export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
 
