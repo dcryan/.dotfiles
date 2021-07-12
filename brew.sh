@@ -6,6 +6,6 @@ if test ! $(which brew); then
 fi
 
 # Then pass in the Brewfile location
-brew bundle --file ~/Development/dotfiles/Brewfile
+brew bundle --file ~/.dotfiles/Brewfile
 
 # TODO:  Add SystemConfig folders from iCloud Drive
