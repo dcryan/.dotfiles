@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
 tmux new -s idearoom -d -c ~/Development/idearoom/stanley
-tmux splitw -h -t idearoom: -d -c ~/Development/idearoom/mysql
-tmux splitw -h -t idearoom: -d -c ~/Development/idearoom/stanley/carportview/configurator
-tmux splitw -h -t idearoom: -d -c ~/Development/idearoom/stanley/carportview/server
-tmux splitw -h -t idearoom: -d -c ~/Development/idearoom/stanley/api
+tmux neww -t idearoom: -n stanley -d -c ~/Development/idearoom/mysql
+tmux splitw -h -t idearoom:stanley -d -c ~/Development/idearoom/stanley/carportview/server
+tmux splitw -h -t idearoom:stanley -d -c ~/Development/idearoom/stanley/api
+tmux splitw -h -t idearoom:stanley -d -c ~/Development/idearoom/stanley/carportview/configurator
 
 # tmux neww -t idearoom: -n mysql -d 'z idea st && cd ../mysql && docker-compose up'
 # tmux neww -t idearoom: -n 'carport-configurator' -d 'z idea st && cd carportview/configurator && NODE_ENV=localhost yarn build && NODE_ENV=localhost yarn start'
