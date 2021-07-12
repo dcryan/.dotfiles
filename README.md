@@ -14,7 +14,7 @@
 
 ```
 # Clone the dotfiles to ~/.dotfiles.
-git clone git@github.com:dcryan/dotfiles.git ~/.dotfiles
+git clone git@github.com:dcryan/.dotfiles.git ~/.dotfiles
 ```
 
 2. Symlink all dot files.
