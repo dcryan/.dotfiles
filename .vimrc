@@ -5,10 +5,9 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 Plug 'nvim-lua/diagnostic-nvim'
 
-" telescope requirements...
-"Plug 'nvim-lua/popup.nvim'
-"Plug 'nvim-lua/plenary.nvim'
-"Plug 'nvim-lua/telescope.nvim'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'tpope/vim-commentary'
@@ -19,14 +18,9 @@ Plug 'sheerun/vim-polyglot'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'dense-analysis/ale'
 Plug 'vim-airline/vim-airline'
-"Plug 'vimwiki/vimwiki'
-"Plug 'neoclide/coc.nvim', {'branch': 'release'}
-"Plug 'sirver/ultisnips'
-"Plug 'honza/vim-snippets'
 
 " Colors
 Plug 'gruvbox-community/gruvbox'
-Plug 'dracula/vim', {'as': 'dracula'}
 
 call plug#end(  )
 
@@ -117,16 +111,17 @@ endif
 
 " Tweaks For Browsing:
 let g:netrw_banner=0        " disable annoying banner
-let g:netrw_browse_split=0  " re-using the same window (default))
+" let g:netrw_browse_split=2  " vertically splitting the window first
 let g:netrw_altv=1          " open splits to the right
 let g:netrw_liststyle=3     " tree view
-let g:netrw_list_hide=netrw_gitignore#Hide()
-let g:netrw_list_hide.=',\(^\|\s\s\)\zs\.\S\+'
+let g:netrw_list_hide=',\(^\|\s\s\)\zs\.\S\+'
+let g:netrw_winsize=15
+" nmap <LEADER>n :Lex<CR>
+" nmap <LEADER>m :Vex<CR>
 
 
 
 " SNIPPETS:
-
 nnoremap \html :-1read $HOME/.vim/snippets/skeleton.html<CR>
 
 
@@ -148,9 +143,8 @@ vnoremap <C-k> :m '<-2<CR>gv=gv
 
 
 " NERDTree Config:
-
-nmap <LEADER>n :NERDTreeToggle<CR>
 nmap <LEADER>m :NERDTreeFind<CR>
+nmap <LEADER>n :NERDTreeToggle<CR>
 
 " autoquit if only nerdtree is open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
@@ -158,20 +152,40 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 
 
 " FZF Config:
-nmap <C-p> :GFiles<CR>
-nnoremap <Leader>f :Rg <C-R><C-W>
-let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
-let $FZF_DEFAULT_OPTS='--reverse'
+" nmap <C-p> :GFiles<CR>
+" nnoremap <Leader>f :Rg <C-R><C-W>
+" let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
+" let $FZF_DEFAULT_OPTS='--reverse'
 
 
 
-" Completion Nvim
+" Completion Nvim:
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 lua require'lspconfig'.tsserver.setup{ on_attach=require'completion'.on_attach }
+lua require'lspconfig'.pyright.setup{}
+
+" Use <Tab> and <S-Tab> to navigate through popup menu
+inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
+" Use completion-nvim in every buffer
+autocmd BufEnter * lua require'completion'.on_attach()
+
+" " possible value: 'UltiSnips', 'Neosnippet', 'vim-vsnip', 'snippets.nvim'
+" let g:completion_enable_snippet = 'UltiSnips'
 
 
 
-" Nvim LSP
+" Telescope Nvim:
+nnoremap <C-p> <cmd>Telescope find_files<cr>
+nnoremap <leader>f <cmd>Telescope live_grep<cr>
+nnoremap <leader>F <cmd>Telescope grep_string<cr>
+nnoremap <leader>b <cmd>Telescope buffers<cr>
+nnoremap <leader>t <cmd>Telescope help_tags<cr>
+
+
+
+" Nvim LSP:
 nnoremap <leader>gd :lua vim.lsp.buf.definition()<CR>
 nnoremap <leader>gi :lua vim.lsp.buf.implementation()<CR>
 nnoremap <leader>gsh :lua vim.lsp.buf.signature_help()<CR>
@@ -184,48 +198,29 @@ nnoremap <leader>gsd :lua vim.lsp.util.show_line_diagnostics(); vim.lsp.util.sho
 nnoremap <leader>gws :lua vim.lsp.buf.workspace_symbol()<CR>
 nnoremap <leader>gf :lua vim.lsp.buf.formatting()<CR>
 
-nnoremap <leader>pw :lua require('telescope.builtin').grep_string { search = vim.fn.expand("<cword>") }<CR>
-nnoremap <leader>pb :lua require('telescope.builtin').buffers()<CR>
-nnoremap <leader>vh :lua require('telescope.builtin').help_tags()<CR>
-nnoremap <leader>ps :lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep For > ")})<CR>
-"nnoremap <C-p> :lua require('telescope.builtin').git_files(require('telescope.themes').get_dropdown())<CR>
 
 
+"" COC Configs:
+"" use <tab> for trigger completion and navigate to the next complete item
+"function! s:check_back_space() abort
+"  let col = col('.') - 1
+"  return !col || getline('.')[col - 1]  =~ '\s'
+"endfunction
 
-" COC Configs:
-" GoTo Code Navigation:
-"nmap <leader>gd <Plug>(coc-definition)
-"nmap <leader>gy <Plug>(coc-type-definition)
-"nmap <leader>gi <Plug>(coc-implementation)
-"nmap <leader>gr <Plug>(coc-references)
-"nmap <leader>rr <Plug>(coc-rename)
-"nmap <leader>g[ <Plug>(coc-diagnostic-prev)
-"nmap <leader>g] <Plug>(coc-diagnostic-next)
-"nmap <silent> <leader>gp <Plug>(coc-diagnostic-prev)
-"nmap <silent> <leader>gn <Plug>(coc-diagnostic-next)
-"nnoremap <leader>cr :CocRestart
-"nnoremap <Leader>f :CocSearch <C-R><C-W>
+"inoremap <silent><expr> <Tab>
+"  \ pumvisible() ? "\<C-n>" :
+"  \ <SID>check_back_space() ? "\<Tab>" :
+"  \ coc#refresh()
 
-" use <tab> for trigger completion and navigate to the next complete item
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
+""" use <c-space>for trigger completion
+""inoremap <silent><expr> <c-space> coc#refresh()
 
-inoremap <silent><expr> <Tab>
-  \ pumvisible() ? "\<C-n>" :
-  \ <SID>check_back_space() ? "\<Tab>" :
-  \ coc#refresh()
+"" Use <Tab> and <S-Tab> to navigate the completion list
+"inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-"" use <c-space>for trigger completion
-"inoremap <silent><expr> <c-space> coc#refresh()
-
-" Use <Tab> and <S-Tab> to navigate the completion list
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" Use <cr> to confirm completion
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+"" Use <cr> to confirm completion
+"inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 
 
@@ -253,53 +248,23 @@ let g:vimwiki_list = [{
 
 
 
-"" UltiSnips:
-"" Trigger configuration.
-"" We'll trigger with Coc-Snippets
-"" let g:UltiSnipsExpandTrigger="<S-tab>"
-"" let g:UltiSnipsJumpForwardTrigger="<c-b>"
-"" let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
-"" If you want :UltiSnipsEdit to split your window.
-"let g:UltiSnipsEditSplit="vertical"
-
-"let g:UltiSnipsSnippetDirectories=['~/Development/vim-snippets']
-
-
-
-"" Coc-snippets
-"" Use <C-l> for trigger snippet expand.
-"imap <C-l> <Plug>(coc-snippets-expand)
-
-"" Use <C-j> for select text for visual placeholder of snippet.
-"vmap <C-j> <Plug>(coc-snippets-select)
-
-"" Use <C-j> for jump to next placeholder, it's default of coc.nvim
-"let g:coc_snippet_next = '<c-j>'
-
-"" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-"let g:coc_snippet_prev = '<c-k>'
-
-"" Use <C-j> for both expand and jump (make expand higher priority.)
-"imap <C-j> <Plug>(coc-snippets-expand-jump)
-
-"" Use <leader>x for convert visual selected code to snippet
-"xmap <leader>x  <Plug>(coc-convert-snippet)
-
-
-
 " SHORTCUTS:
 
 " Edit/Source the vimrc file:
 nnoremap <Leader>vr :so $MYVIMRC<CR>
 "nnoremap <Leader>ve :tabnew $MYVIMRC<CR>
-nnoremap <Leader>ve :tabnew $HOME/Development/dotfiles/.vimrc<CR>
+nnoremap <Leader>ve :tabnew $HOME/.vimrc<CR>
 
 " Format JSON
-nnoremap <Leader>F :%!jq .<CR>
+autocmd FileType json nnoremap <Leader>gF :%!jq .<CR>
 
 " hide hilighted words
 nnoremap <Leader>hh :nohl<CR>
+
+" Quickfix List Shortcuts
+nnoremap <C-k> :cnext<CR>
+nnoremap <C-j> :cprev<CR>
+nnoremap <C-e> :cclose<CR>
 
 
 " Highlight all instances of word under cursor, when idle.
@@ -324,6 +289,3 @@ function! AutoHighlightToggle()
     return 1
   endif
 endfunction
-
-command! Format execute 'lua vim.lsp.buf.formatting()'
-
