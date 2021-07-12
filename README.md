@@ -1,44 +1,32 @@
-# Awesome Dotfiles
+# .dotfiles
 > Warning: If you want to give these dotfiles a try, you should first fork this
 > repository, review the code, and remove things you don’t want or need. Don’t
 > blindly use my settings unless you know what that entails. Use at your own risk!
 
+## Pre-requirements
+- `git`
+- [`brew`](https://brew.sh/)
+- GNU [`stow`](https://www.gnu.org/software/stow/manual/stow.html) (`brew install stow`)
+- Apple Commandline Tools (`xcode-select --install`)
+
 ## Steps to Bootstrap a New Mac
-1. Install Apples Command Line Tools, which are prerequisits for Git and Homebrew.
+1. Clone repo
 
 ```
-xcode-select --install
+# Clone the dotfiles to ~/.dotfiles.
+git clone git@github.com:dcryan/dotfiles.git ~/.dotfiles
 ```
 
-2. Clone repo into new hidden directory.
-
-```
-# Clone the dotfiles to ~/Development/dotfiles.
-git clone git@github.com:dcryan/dotfiles.git ~/Development/dotfiles
-```
-
-3 Symlink all dot files.
+2. Symlink all dot files.
 
 ```
 # this will add a symbolic link for all hidden files here to the $HOME directory.
-./bootstrap.sh
+stow */ # Everything (the '/' ignores the README)
 ```
 
-4. Install Homebrew and packages.
+3. Install Homebrew and packages.
 
 ```
 # this will install Homebrew, and `brew install` all packages and casks.
 ./brew.sh
-```
-
-To update, cd into your local dotfiles repository and then:
-
-```
-source bootstrap.sh
-```
-
-Alternatively, to update while avoiding the confirmation prompt:
-
-```
-set -- -f; source bootstrap.sh
 ```
