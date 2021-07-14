@@ -14,19 +14,19 @@
 
 ```
 # Clone the dotfiles to ~/.dotfiles.
-git clone git@github.com:dcryan/.dotfiles.git ~/.dotfiles
+$ git clone git@github.com:dcryan/.dotfiles.git ~/.dotfiles
 ```
 
 2. Symlink all dot files.
 
 ```
 # this will add a symbolic link for all hidden files here to the $HOME directory.
-stow */ # Everything (the '/' ignores the README)
+$ stow */ # Everything (the '/' ignores the README)
 ```
 
 3. Install Homebrew and packages.
 
 ```
 # this will install Homebrew, and `brew install` all packages and casks.
-./brew.sh
+$ ./brew.sh
 ```
