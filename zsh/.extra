@@ -32,13 +32,13 @@ export ZSH="/Users/danielryan/.oh-my-zsh"
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
 
-# plugins=(
-#   git
-#   docker
-#   docker-compose
-#   zsh-autosuggestions
-#   zsh-syntax-highlighting
-# )
+plugins=(
+  git
+  docker
+  docker-compose
+  zsh-autosuggestions
+  zsh-syntax-highlighting
+)
 
 # Fixes issue wiht zsh-autosuggestions for slow pasting
 zstyle ':bracketed-paste-magic' active-widgets '.self-*'
