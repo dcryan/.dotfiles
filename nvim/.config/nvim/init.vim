@@ -228,8 +228,7 @@ let g:vimwiki_list = [{
 
 " Edit/Source the vimrc file:
 nnoremap <Leader>vr :so $MYVIMRC<CR>
-"nnoremap <Leader>ve :tabnew $MYVIMRC<CR>
-nnoremap <Leader>ve :tabnew $HOME/.vimrc<CR>
+nnoremap <Leader>ve :tabnew $MYVIMRC<CR>
 
 " Format JSON
 autocmd FileType json nnoremap <Leader>gF :%!jq .<CR>
