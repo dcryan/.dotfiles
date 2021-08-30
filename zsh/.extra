@@ -55,12 +55,8 @@ source $ZSH/oh-my-zsh.sh
 ######
 # NVM
 ######
-# For brew, at least
-
 export NVM_DIR="$HOME/.nvm"
-. "$(brew --prefix nvm)/nvm.sh"
-#
-# -- end of NVM
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
 
 
 
