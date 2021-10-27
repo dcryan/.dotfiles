@@ -8,16 +8,18 @@ Plug 'nvim-lua/diagnostic-nvim'
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'tpope/vim-commentary'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
 Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-surround'
 Plug 'sheerun/vim-polyglot'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'dense-analysis/ale'
 Plug 'vim-airline/vim-airline'
+
+Plug 'mattn/emmet-vim'
 
 " Colors
 Plug 'gruvbox-community/gruvbox'
@@ -123,6 +125,7 @@ let g:netrw_winsize=15
 
 " SNIPPETS:
 nnoremap \html :-1read $HOME/.vim/snippets/skeleton.html<CR>
+nnoremap \rc :-1read $HOME/.vim/snippets/react-component.js<CR>
 
 
 
@@ -148,14 +151,6 @@ nmap <LEADER>n :NERDTreeToggle<CR>
 
 " autoquit if only nerdtree is open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-
-
-" FZF Config:
-" nmap <C-p> :GFiles<CR>
-" nnoremap <Leader>f :Rg <C-R><C-W>
-" let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
-" let $FZF_DEFAULT_OPTS='--reverse'
 
 
 
@@ -202,25 +197,33 @@ nnoremap <leader>gf :lua vim.lsp.buf.formatting()<CR>
 
 " ALE Linting:
 let g:ale_linters = {
-\   'javascript': ['eslint'],
-\}
+  \   'javascript': ['eslint'],
+  \   'python': ['flake8'],
+  \}
 let g:ale_fixers = {
-\   '*' : ['importjs'],
-\   'css': ['eslint'],
-\   'javascript': ['eslint'],
-\}
+  \   'css': ['eslint'],
+  \   'javascript': ['eslint', 'importjs'],
+  \   'python': ['black'],
+  \}
 let g:ale_fix_on_save = 1
 let g:ale_lint_on_save = 1
 let g:ale_javascript_prettier_use_local_config = 1
+let g:ale_lint_on_text_change = 'never'
+
+" Do not lint or fix minified files.
+let g:ale_pattern_options = {
+  \ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
+  \ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
+  \}
 
 
 
 " VimWiki:
 let g:vimwiki_list = [{
-      \   'path': '~/Development/vimwiki/',
-      \   'syntax': 'markdown',
-      \   'ext': '.md'
-      \ }]
+    \   'path': '~/Development/vimwiki/',
+    \   'syntax': 'markdown',
+    \   'ext': '.md'
+    \ }]
 
 
 
@@ -233,13 +236,13 @@ nnoremap <Leader>ve :tabnew $MYVIMRC<CR>
 " Format JSON
 autocmd FileType json nnoremap <Leader>gF :%!jq .<CR>
 
-" hide hilighted words
+" hide highlighted words
 nnoremap <Leader>hh :nohl<CR>
 
 " Quickfix List Shortcuts
-nnoremap <C-k> :cnext<CR>
-nnoremap <C-j> :cprev<CR>
-nnoremap <C-e> :cclose<CR>
+" nnoremap <C-k> :cnext<CR>
+" nnoremap <C-j> :cprev<CR>
+" nnoremap <C-e> :cclose<CR>
 
 
 " Highlight all instances of word under cursor, when idle.
