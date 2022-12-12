@@ -2,13 +2,18 @@ call plug#begin('~/.vim/plugged')
 
 " Neovim lsp Plugins
 Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/completion-nvim'
 Plug 'nvim-lua/diagnostic-nvim'
+
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
 
 Plug 'nvim-lua/popup.nvim'
 Plug 'nvim-lua/plenary.nvim'
 Plug 'nvim-telescope/telescope.nvim'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter'
 
 Plug 'github/copilot.vim'
 
@@ -16,12 +21,16 @@ Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
+Plug 'airblade/vim-gitgutter'
 Plug 'sheerun/vim-polyglot'
 Plug 'bronson/vim-trailing-whitespace'
 Plug 'dense-analysis/ale'
 Plug 'vim-airline/vim-airline'
+Plug 'kyazdani42/nvim-web-devicons'
 
 Plug 'mattn/emmet-vim'
+
+" Plug 'vimwiki/vimwiki'
 
 " Colors
 Plug 'gruvbox-community/gruvbox'
@@ -71,9 +80,9 @@ set noshowmode         " Hides the mode in the status line
 set hidden             " Disables confirmation of '!' on exit (e.g. :q!)
 set visualbell         " Displays bell and silences the sound
 set nrformats-=octal   " Removes octal from increment/decrement functionality
-set completeopt=menuone,noinsert,noselect " completion-nvim
-set shortmess+=c       " completion-nvim
-"set omnifunc=syntaxcomplete#Complete " (disabled because of completion-nvim) Enable Omni Completion
+set completeopt=menuone,noinsert,noselect " Controls the completion menu
+set shortmess+=c       " Disable completion status messages
+set omnifunc=syntaxcomplete#Complete
 set lazyredraw         " Lazy redraws the screen
 set scrolloff=3        " Top & Bottom scroll starts X spaces away
 set sidescrolloff=3    " Left & Right scroll starts X spaces away
@@ -131,6 +140,13 @@ nnoremap \rc :-1read $HOME/.vim/snippets/react-component.js<CR>
 
 
 
+" Skeletons:
+autocmd BufNewFile *.sh 0r ~/.vim/skeleton/bash.sh
+
+
+
+
+
 " WINDOW MANAGEMENT:
 " Set window sizes equal
 nnoremap <Leader>= :wincmd =<CR>
@@ -156,22 +172,6 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 
 
 
-" Completion Nvim:
-let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
-lua require'lspconfig'.tsserver.setup{ on_attach=require'completion'.on_attach }
-lua require'lspconfig'.pyright.setup{}
-
-" Use <Tab> and <S-Tab> to navigate through popup menu
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-
-" Use completion-nvim in every buffer
-autocmd BufEnter * lua require'completion'.on_attach()
-
-" " possible value: 'UltiSnips', 'Neosnippet', 'vim-vsnip', 'snippets.nvim'
-" let g:completion_enable_snippet = 'UltiSnips'
-
-
 
 " Telescope Nvim:
 nnoremap <C-p> <cmd>Telescope find_files<cr>
@@ -183,6 +183,9 @@ nnoremap <leader>t <cmd>Telescope help_tags<cr>
 
 
 " Nvim LSP:
+lua require'lspconfig'.tsserver.setup{}
+lua require'lspconfig'.pyright.setup{}
+
 nnoremap <leader>gd :lua vim.lsp.buf.definition()<CR>
 nnoremap <leader>gi :lua vim.lsp.buf.implementation()<CR>
 nnoremap <leader>gsh :lua vim.lsp.buf.signature_help()<CR>
@@ -190,21 +193,24 @@ nnoremap <leader>gr :lua vim.lsp.buf.references()<CR>
 nnoremap <leader>rr :lua vim.lsp.buf.rename()<CR>
 nnoremap <leader>gh :lua vim.lsp.buf.hover()<CR>
 nnoremap <leader>gca :lua vim.lsp.buf.code_action()<CR>
-nnoremap <leader>gsd :lua vim.lsp.util.show_line_diagnostics(); vim.lsp.util.show_line_diagnostics()<CR>
+nnoremap <leader>gsd :lua vim.diagnostic.open_float(0, { scope = "line", border = "single" })<CR>
+
 
 nnoremap <leader>gws :lua vim.lsp.buf.workspace_symbol()<CR>
 nnoremap <leader>gf :lua vim.lsp.buf.formatting()<CR>
+
+" Nvim LSP ESLint:
+lua require'lspconfig'.eslint.setup{}
+autocmd BufWritePre *.tsx,*.ts,*.jsx,*.js EslintFixAll
 
 
 
 " ALE Linting:
 let g:ale_linters = {
-  \   'javascript': ['eslint'],
   \   'python': ['flake8'],
   \}
 let g:ale_fixers = {
   \   'css': ['eslint'],
-  \   'javascript': ['eslint', 'importjs'],
   \   'python': ['black'],
   \}
 let g:ale_fix_on_save = 1
@@ -214,18 +220,24 @@ let g:ale_lint_on_text_change = 'never'
 
 " Do not lint or fix minified files.
 let g:ale_pattern_options = {
-  \ '\.min\.js$': {'ale_linters': [], 'ale_fixers': []},
   \ '\.min\.css$': {'ale_linters': [], 'ale_fixers': []},
   \}
 
 
 
-" VimWiki:
-let g:vimwiki_list = [{
-    \   'path': '~/Development/vimwiki/',
-    \   'syntax': 'markdown',
-    \   'ext': '.md'
-    \ }]
+" File Based Settings
+" - Markdown
+autocmd FileType markdown setlocal spell
+
+
+
+" " VimWiki
+" let g:vimwiki_list = [{
+"       \ 'path': '~/Development/.notes/',
+"       \ 'links_space_char': '_',
+"       \ 'syntax': 'markdown',
+"       \ 'ext': '.md'
+"       \}]
 
 
 
@@ -245,6 +257,9 @@ nnoremap <Leader>hh :nohl<CR>
 " nnoremap <C-k> :cnext<CR>
 " nnoremap <C-j> :cprev<CR>
 " nnoremap <C-e> :cclose<CR>
+
+" Close all buffers and re-open the current one
+" command Bd :up | %bd | e#
 
 
 " Highlight all instances of word under cursor, when idle.
