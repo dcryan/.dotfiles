@@ -1,16 +1,29 @@
-export PATH=$HOME/bin:$PATH
-export PATH=/usr/bin:$PATH
-export PATH=/usr/local/bin:$PATH
-export PATH=/usr/local/sbin:$PATH
-export PATH=/usr/local/mysql/bin:$PATH
-export PATH=/usr/local/opt/ruby/bin:$PATH
-
 # Used by brew `coreutils`
-export PATH="/usr/local/opt/coreutils/libexec/gnubin:$PATH"
+export PATH=$PATH:/usr/local/opt/coreutils/libexec/gnubin
+
+# putting pyenv first to get python version first
+export PATH="/usr/local/bin:$PATH"
+export PATH="$HOME/.pyenv/bin:$PATH"
+export PATH=$(pyenv root)/shims:$PATH
+
+export PATH=$PATH:$HOME/bin
+export PATH=$PATH:/usr/bin
+export PATH=$PATH:/usr/local/bin
+export PATH=$PATH:/usr/local/sbin
+export PATH=$PATH:/usr/local/mysql/bin
+export PATH=$PATH:/usr/local/opt/ruby/bin
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
 # Needed to build Android apps
 export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home
-export PATH=$JAVA_HOME/bin:$PATH
+export PATH=$PATH:$JAVA_HOME/bin
+
+
+# Needed for PyEnv
+
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
+export LDFLAGS="-L/usr/local/opt/zlib/lib -L/usr/local/opt/bzip2/lib"
+export CPPFLAGS="-I/usr/local/opt/zlib/include -I/usr/local/opt/bzip2/include"
