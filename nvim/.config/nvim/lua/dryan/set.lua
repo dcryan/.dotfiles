@@ -1,5 +1,3 @@
-vim.opt.guicursor = ""
-
 vim.opt.number = true         -- Show Line Numbers
 vim.opt.relativenumber = true -- Show relative line numbers
 
