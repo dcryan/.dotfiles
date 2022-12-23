@@ -30,3 +30,25 @@ $ stow */ # Everything (the '/' ignores the README)
 # this will install Homebrew, and `brew install` all packages and casks.
 $ ./brew.sh
 ```
+
+## Steps to Create a Brewfile
+
+```
+rm Brewfile
+brew bundle dump
+```
+
+### Remove the clutter from the Brewfile
+The `autoremove` command removes all the hanging, no longer needed packages
+from your computer. So say goodbye to unneeded dependencies and messy brew list output.
+
+```
+brew autoremove
+```
+
+If you want to take your tidy-up routine to the next level, you can also
+run `brew cleanup`. This command removes downloads for outdated formulas and casks.
+
+```
+brew cleanup
+```
