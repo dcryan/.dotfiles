@@ -4,7 +4,7 @@
 #
 # See 'info stow' section "4 Ignore Lists" for more information
 
-.DS_Store
+**/.DS_Store
 \.git
 \.gitignore
 

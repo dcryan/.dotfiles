@@ -9,6 +9,23 @@
 - GNU [`stow`](https://www.gnu.org/software/stow/manual/stow.html) (`brew install stow`)
 - Apple Commandline Tools (`xcode-select --install`)
 
+### Brew
+
+Install Brew [`here`](https://brew.sh/).
+
+Once brew is installed run these commands. This will add brew to the path.
+```
+echo '# Set PATH, MANPATH, etc., for Homebrew.' >> /Users/danielryan/.zprofile
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/danielryan/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv)"
+```
+
+Install `stow`
+```
+brew install stow
+```
+
+
 ## Steps to Bootstrap a New Mac
 1. Clone repo
 
@@ -51,4 +68,13 @@ run `brew cleanup`. This command removes downloads for outdated formulas and cas
 
 ```
 brew cleanup
+```
+
+### Access iCloud Development folder
+This has all the pre-install requirements such as:
+* ssh keys
+
+```
+cd /Users/danielryan/Library/Mobile\ Documents/com~apple~CloudDocs/Development
+stow */
 ```
