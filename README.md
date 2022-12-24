@@ -51,8 +51,8 @@ $ ./brew.sh
 ## Steps to Create a Brewfile
 
 ```
-rm Brewfile
-brew bundle dump
+# Overwrites the Brewfile
+brew bundle --force dump
 ```
 
 ### Remove the clutter from the Brewfile
