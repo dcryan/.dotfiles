@@ -4,6 +4,6 @@
 [submodule "nvim/.config/nvim"]
 	path = nvim/.config/nvim
 	url = git@github.com:dcryan/.dotfiles-nvim.git
-[submodule "ssh/.ssh"]
+[submodule "ssh-configs/.ssh"]
 	path = ssh/.ssh
 	url = git@github.com:dcryan/.ssh.git

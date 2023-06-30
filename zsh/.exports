@@ -7,3 +7,5 @@ export LS_COLORS='no=00:fi=00:di=34:ow=34;40:ln=35:pi=30;44:so=35;44:do=35;44:bd
 export EDITOR="/usr/local/bin/nvim"
 export GIT_EDITOR="nvim"
 export PYENV_ROOT="$HOME/.pyenv"
+
+export HOMEBREW_GITHUB_API_TOKEN=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

@@ -1,9 +1,5 @@
 # This is Git's per-user configuration file.
 [user]
-# Please adapt and uncomment the following lines:
-#	name = Daniel Ryan
-#	email = daniel.c.ryan@icloud.com
-[user]
 	name = Daniel Ryan
 	email = d@nielryan.com
 [core]
@@ -27,8 +23,23 @@
 	b = branch
 	c = commit
 	s = status
+  l = log
+  d = diff
+  a = add
+  p = push
+  f = fetch
+  m = merge
+  pl = pull
+  r = rebase
+  t = tag
+  i = init
+  st = stash
 	unstage = reset HEAD --
 	last = log -1 HEAD
+  amend = commit --amend
+  uncommit = reset --soft HEAD^
+  unstage = reset HEAD --
+  unmod = checkout -- .
 [pull]
 	rebase = false
 [push]

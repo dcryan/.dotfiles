@@ -10,4 +10,8 @@ nvim/.vim/undodir
 .Spotlight-V100
 .Trashes
 
-.personal
+ssh-configs
+
+session.vim
+
+zsh/.personal
