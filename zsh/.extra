@@ -84,7 +84,8 @@ load-nvmrc
 ################
 # Home Brew - Z
 ################
-. $(brew --prefix)/etc/profile.d/z.sh
+# . $(brew --prefix)/etc/profile.d/z.sh
+. /opt/homebrew/etc/profile.d/z.sh
 # end of Home Brew - Z
 
 
