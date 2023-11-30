@@ -36,22 +36,28 @@ $ git clone git@github.com:dcryan/.dotfiles.git ~/.dotfiles
 
 2. Symlink all dot files.
 
+This will add a symbolic link for all hidden files here to the $HOME directory.
+The '/' targets only the directories, and ignores all first root directory
+files. The `--restow` will do a cleanup before doing another stow.
+
 ```
-# this will add a symbolic link for all hidden files here to the $HOME directory.
-$ stow */ # Everything (the '/' ignores the README)
+$ stow --restow */ 
+
 ```
 
 3. Install Homebrew and packages.
 
+This will install Homebrew, and `brew install` all packages and casks.
+
 ```
-# this will install Homebrew, and `brew install` all packages and casks.
 $ ./brew.sh
 ```
 
 ## Steps to Create a Brewfile
 
+Overwrites the Brewfile
+
 ```
-# Overwrites the Brewfile
 brew bundle --force dump
 ```
 
