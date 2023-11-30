@@ -1,9 +1,12 @@
 # Used by brew `coreutils`
 export PATH=$PATH:/usr/local/opt/coreutils/libexec/gnubin
 
+# Set PATH, MANPATH, etc., for Homebrew.
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # putting pyenv first to get python version first
-export PATH="/usr/local/bin:$PATH"
-export PATH="$HOME/.pyenv/bin:$PATH"
+export PATH=/usr/local/bin:$PATH
+export PATH=$HOME/.pyenv/bin:$PATH
 export PATH=$(pyenv root)/shims:$PATH
 
 export PATH=$PATH:$HOME/bin
@@ -14,7 +17,7 @@ export PATH=$PATH:/usr/local/mysql/bin
 export PATH=$PATH:/usr/local/opt/ruby/bin
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
-export PATH="$PATH:$HOME/.rvm/bin"
+export PATH=$PATH:$HOME/.rvm/bin
 
 # Needed to build Android apps
 # export JAVA_HOME=/Library/Java/JavaVirtualMachines/jdk1.8.0_171.jdk/Contents/Home
