@@ -1,9 +1,6 @@
 {
     "global": { "show_in_menu_bar": false },
-    "machine_specific": {
-        "krbn-33df4705-3d79-4b78-955a-3366b22313a8": { "enable_multitouch_extension": true },
-        "krbn-empty-machine-identifier": { "enable_multitouch_extension": true }
-    },
+    "machine_specific": { "krbn-33df4705-3d79-4b78-955a-3366b22313a8": { "enable_multitouch_extension": true } },
     "profiles": [
         {
             "complex_modifications": {
@@ -87,7 +84,7 @@
                                     "key_code": "period",
                                     "modifiers": { "mandatory": ["left_command", "left_control", "left_option", "left_shift"] }
                                 },
-                                "to": [{ "key_code": "f13" }],
+                                "to": [{ "key_code": "f19" }],
                                 "type": "basic"
                             }
                         ]
@@ -100,7 +97,7 @@
                                     "key_code": "comma",
                                     "modifiers": { "mandatory": ["left_command", "left_control", "left_option", "left_shift"] }
                                 },
-                                "to": [{ "key_code": "f13" }],
+                                "to": [{ "key_code": "f19" }],
                                 "type": "basic"
                             }
                         ]
@@ -113,7 +110,7 @@
                                     "key_code": "quote",
                                     "modifiers": { "mandatory": ["left_command", "left_control", "left_option", "left_shift"] }
                                 },
-                                "to": [{ "key_code": "f13" }],
+                                "to": [{ "key_code": "f19" }],
                                 "type": "basic"
                             }
                         ]
@@ -126,7 +123,7 @@
                                     "key_code": "period",
                                     "modifiers": { "mandatory": ["right_command", "right_control", "right_option", "right_shift"] }
                                 },
-                                "to": [{ "key_code": "f13" }],
+                                "to": [{ "key_code": "f19" }],
                                 "type": "basic"
                             }
                         ]
@@ -139,7 +136,7 @@
                                     "key_code": "comma",
                                     "modifiers": { "mandatory": ["right_command", "right_control", "right_option", "right_shift"] }
                                 },
-                                "to": [{ "key_code": "f13" }],
+                                "to": [{ "key_code": "f19" }],
                                 "type": "basic"
                             }
                         ]
@@ -152,7 +149,7 @@
                                     "key_code": "quote",
                                     "modifiers": { "mandatory": ["right_command", "right_control", "right_option", "right_shift"] }
                                 },
-                                "to": [{ "key_code": "f13" }],
+                                "to": [{ "key_code": "f19" }],
                                 "type": "basic"
                             }
                         ]
@@ -253,6 +250,107 @@
                                     "modifiers": { "optional": ["any"] }
                                 },
                                 "to": [{ "pointing_button": "button2" }],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "multitouch_extension_finger_count_total",
+                                        "type": "variable_unless",
+                                        "value": 0
+                                    },
+                                    {
+                                        "keyboard_types": ["ansi", "iso"],
+                                        "type": "keyboard_type_if"
+                                    }
+                                ],
+                                "from": { "key_code": "g" },
+                                "to": [
+                                    {
+                                        "key_code": "close_bracket",
+                                        "modifiers": ["left_command"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "multitouch_extension_finger_count_total",
+                                        "type": "variable_unless",
+                                        "value": 0
+                                    },
+                                    {
+                                        "keyboard_types": ["jis"],
+                                        "type": "keyboard_type_if"
+                                    }
+                                ],
+                                "from": { "key_code": "g" },
+                                "to": [
+                                    {
+                                        "key_code": "backslash",
+                                        "modifiers": ["left_command"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "multitouch_extension_finger_count_total",
+                                        "type": "variable_unless",
+                                        "value": 0
+                                    },
+                                    {
+                                        "keyboard_types": ["ansi", "iso"],
+                                        "type": "keyboard_type_if"
+                                    }
+                                ],
+                                "from": { "key_code": "h" },
+                                "to": [
+                                    {
+                                        "key_code": "open_bracket",
+                                        "modifiers": ["left_command"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "multitouch_extension_finger_count_total",
+                                        "type": "variable_unless",
+                                        "value": 0
+                                    },
+                                    {
+                                        "keyboard_types": ["jis"],
+                                        "type": "keyboard_type_if"
+                                    }
+                                ],
+                                "from": { "key_code": "h" },
+                                "to": [
+                                    {
+                                        "key_code": "close_bracket",
+                                        "modifiers": ["left_command"]
+                                    }
+                                ],
+                                "type": "basic"
+                            },
+                            {
+                                "conditions": [
+                                    {
+                                        "name": "multitouch_extension_finger_count_total",
+                                        "type": "variable_unless",
+                                        "value": 0
+                                    }
+                                ],
+                                "from": { "key_code": "w" },
+                                "to": [
+                                    {
+                                        "key_code": "w",
+                                        "modifiers": ["left_command"]
+                                    }
+                                ],
                                 "type": "basic"
                             }
                         ]
