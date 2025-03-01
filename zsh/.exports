@@ -16,3 +16,7 @@ export GIT_EDITOR="nvim"
 export PYENV_ROOT="$HOME/.pyenv"
 
 export ANDROID_HOME=$HOME/Library/Android/sdk
+
+# Made a symlink to the actual file
+# https://developer.1password.com/docs/ssh/get-started/#step-4-configure-your-ssh-or-git-client
+export SSH_AUTH_SOCK="~/.1password/agent.sock"
