@@ -45,6 +45,7 @@
 	rebase = false
 [push]
 	default = simple
+	autoSetupRemote = true
 [init]
 	defaultBranch = main
 [gpg]
