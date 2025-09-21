@@ -15,3 +15,6 @@ ssh-configs
 session.vim
 
 zsh/.personal
+
+# Claude Code session data (contains sensitive conversation history)
+claude/.claude.json
