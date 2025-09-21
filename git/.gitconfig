@@ -27,10 +27,10 @@
   l = log
   d = diff
   a = add
-  p = push
+  P = push
   f = fetch
   m = merge
-  pl = pull
+  p = pull
   r = rebase
   t = tag
   i = init
