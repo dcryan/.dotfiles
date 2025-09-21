@@ -1,4 +1,4 @@
-#/bin/bash
+#!/bin/bash
 
 echo "Normal"
 echo "\033[1mBold\033[22m"
@@ -7,3 +7,5 @@ echo "\033[3;1mBold Italic\033[0m"
 echo "\033[4mUnderline\033[24m"
 echo "== === !== >= <= =>"
 echo "契          勒 鈴 "
+# nerd font icons
+echo "              "
