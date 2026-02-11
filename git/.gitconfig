@@ -1,8 +1,6 @@
-# This is Git's per-user configuration file.
 [user]
 	name = Daniel Ryan
 	email = d@nielryan.com
-	signingkey = ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHYJjcTNasp+b9uNqtGum2PgOgXcu0Rx2vD01IZE+n1c
 [core]
 	excludesfile = /Users/danielryan/.gitignore_global
 [difftool "sourcetree"]
@@ -42,15 +40,9 @@
   unstage = reset HEAD --
   unmod = checkout -- .
 [pull]
-	rebase = false
+	rebase = true
 [push]
 	default = simple
 	autoSetupRemote = true
 [init]
 	defaultBranch = main
-[gpg]
-	format = ssh
-[gpg "ssh"]
-	program = /Applications/1Password.app/Contents/MacOS/op-ssh-sign
-[commit]
-	gpgsign = true
