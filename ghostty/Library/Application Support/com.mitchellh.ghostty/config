@@ -52,4 +52,4 @@ font-family = "Monaspace Neon Var"
 font-family = "Symbols Nerd Font"
 font-size = 16
 macos-titlebar-style = hidden
-theme = JetBrains Darcula
+theme = GitHub Dark
