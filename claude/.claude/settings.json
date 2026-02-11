@@ -1,6 +1,9 @@
 {
   "permissions": {
-    "defaultMode": "default"
+    "defaultMode": "default",
+    "allow": [
+      "Skill(git-commit)"
+    ]
   },
   "model": "opus",
   "hooks": {

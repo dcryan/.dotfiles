@@ -2,6 +2,10 @@
 
 The user's name is Daniel.
 
+# Git Commits
+
+When committing changes (git add, commit, or push), always use the `git-commit` skill instead of running git commands directly.
+
 # Response Summary
 
 At the end of every response, include a brief spoken summary for text-to-speech in this exact format:
