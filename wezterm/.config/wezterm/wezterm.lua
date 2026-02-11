@@ -18,7 +18,7 @@ config.window_padding = {
 }
 config.font = wezterm.font_with_fallback({
 	{
-		family = "Monaspace Neon",
+		family = "Monaspace Neon Var",
 		harfbuzz_features = {
 			"calt=1",
 			"ss01=1",
@@ -34,6 +34,7 @@ config.font = wezterm.font_with_fallback({
 		},
 	},
 	-- "JetBrains Mono",
+	-- "Hack Nerd Font",
 	"Symbols Nerd Font",
 })
 config.font_size = 19.0

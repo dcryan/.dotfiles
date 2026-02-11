@@ -1,12 +1,14 @@
 ---
+name: gitlab-issue
 argument-hint: [issue-number]
 description: Complete GitLab issue workflow - fetch issue, create branch, analyze, implement, commit, and create MR
-allowed-tools: ["Bash", "Read", "Write", "Edit", "MultiEdit", "Glob", "Grep", "Task", "TodoWrite"]
+allowed-tools: Bash, Read, Write, Edit, MultiEdit, Glob, Grep, Task, TodoWrite, Bash(glab issue:*)
 ---
 
 GitLab issue workflow for issue #$1.
 
-IMPORTANT: At the beginning of the response, immediately tell the user to press
+IMPORTANT: At the beginning, check if the user has plan mode enabled. If not,
+stop and instruct them to enable it before continuing by tell the user to press
 Shift+Tab to enable plan mode for best execution of this multi-step workflow.
 
 This command will execute the following comprehensive workflow:
@@ -45,6 +47,7 @@ git push -u origin HEAD
 # Create merge request for the issue
 # Determine appropriate title and description based on the changes made
 glab mr create --related-issue $1 \
+  --source-branch "$(git branch --show-current)" \
   --title "[TITLE TO BE DETERMINED BY AGENT]" \
   --description "[DESCRIPTION TO BE DETERMINED BY AGENT - should include summary of changes, testing notes, and 'Closes #$1']" \
   --copy-issue-labels \
