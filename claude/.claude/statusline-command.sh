@@ -73,13 +73,15 @@ if command -v docker &>/dev/null && docker info &>/dev/null 2>&1; then
         host_port=$(echo "$port_entry" | grep -oE '(0\.0\.0\.0|127\.0\.0\.1):[0-9]+' | grep -oE '[0-9]+$')
         if [ -n "$host_port" ] && [ -z "${seen_ports[$host_port]}" ]; then
           seen_ports[$host_port]=1
-          docker_entries="${docker_entries} \033[36m${service_name}\033[34m:${host_port}"
+          url="http://localhost:${host_port}"
+          # OSC 8 clickable link: \e]8;;URL\a TEXT \e]8;;\a
+          docker_entries="${docker_entries} \e]8;;${url}\a\033[36m${service_name}\033[34m:${host_port}\e]8;;\a"
         fi
       done <<< "$(echo "$ports" | tr ',' '\n')"
     fi
   done < <(docker ps --format '{{json .}}' 2>/dev/null)
 
   if [ -n "$docker_entries" ]; then
-    printf "\033[34m${docker_entries}\033[0m\n"
+    printf '%b' "${docker_entries}\033[0m\n"
   fi
 fi
