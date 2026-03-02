@@ -1,0 +1,39 @@
+model = "gpt-5.3-codex"
+model_reasoning_effort = "low"
+notify = ["bash", "-lc", "afplay /System/Library/Sounds/Bottle.aiff"]
+personality = "pragmatic"
+
+[features]
+multi_agent = true
+
+[projects."/Users/danielryan/Development/rising-sun/backend"]
+trust_level = "trusted"
+
+[projects."/Users/danielryan/Development/rising-sun/web"]
+trust_level = "trusted"
+
+[projects."/Users/danielryan/Development/rising-sun"]
+trust_level = "trusted"
+
+[projects."/Users/danielryan/Development/zerrtech/liferaft"]
+trust_level = "trusted"
+
+[projects."/Users/danielryan/.codex"]
+trust_level = "trusted"
+
+[projects."/Users/danielryan/Development/urban-interval-timer"]
+trust_level = "trusted"
+
+[projects."/Users/danielryan/Development/lexitales"]
+trust_level = "trusted"
+
+[mcp_servers.context7]
+url = "https://mcp.context7.com/mcp"
+
+[mcp_servers.mobile-mcp]
+command = "npx"
+args = ["-y", "@mobilenext/mobile-mcp@latest"]
+
+[mcp_servers.playwright]
+command = "npx"
+args = ["@playwright/mcp@latest"]

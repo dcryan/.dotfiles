@@ -1,11 +1,3 @@
-# User
-
-The user's name is Daniel.
-
-# Git Commits
-
-When committing changes (git add, commit, or push), always use the `git-commit` skill instead of running git commands directly.
-
 # Response Summary
 
 At the end of every response, include a brief spoken summary for text-to-speech in this exact format:
@@ -15,6 +7,7 @@ At the end of every response, include a brief spoken summary for text-to-speech 
 ```
 
 Guidelines for the summary:
+
 - Keep it under 150 characters
 - Use natural spoken language (avoid technical jargon, file paths, or code)
 - Focus on what was done, not how

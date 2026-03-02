@@ -10,9 +10,9 @@ TRANSCRIPT_PATH=$(echo "$INPUT" | jq -r '.transcript_path')
 # Extract spoken summary from transcript
 if [ -f "$TRANSCRIPT_PATH" ]; then
     # Look for [SPOKEN_SUMMARY]: marker in last assistant message
-    # Use jq -s to slurp all lines and get the last assistant message properly
+    # Get the last text block (summary is always at the end, after any tool calls)
     MSG=$(tail -100 "$TRANSCRIPT_PATH" | \
-          jq -rs '[.[] | select(.type == "assistant" and .message.role == "assistant")] | last | .message.content[0].text // empty' | \
+          jq -rs '[.[] | select(.type == "assistant" and .message.role == "assistant")] | last | [.message.content[] | select(.type == "text") | .text] | last // empty' | \
           grep -o '\[SPOKEN_SUMMARY\]: .*' | \
           sed 's/\[SPOKEN_SUMMARY\]: //' | \
           head -c 200)
@@ -26,6 +26,5 @@ fi
 # Generate TTS first, then play Funk + voice back-to-back (no gap)
 # All in background subshell so hook returns immediately
 (say "$MSG" -o /tmp/claude_tts.aiff && afplay /System/Library/Sounds/Funk.aiff && afplay -v 0.25 /tmp/claude_tts.aiff) &>/dev/null &
-echo $! > /tmp/claude_say_pid
 disown 2>/dev/null
 

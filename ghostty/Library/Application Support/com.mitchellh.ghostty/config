@@ -48,8 +48,19 @@
 # # Just for example:
 # resize-overlay-duration = 4s 200ms
 
-font-family = "Monaspace Neon Var"
-font-family = "Symbols Nerd Font"
-font-size = 16
+font-family = "Monaspace Neon"
+#font-family = "Symbols Nerd Font"
+#font-family = "JetBrains Mono"
+font-size = 20
+
 macos-titlebar-style = hidden
+
+# Find themes here: https://iterm2colorschemes.com/
 theme = GitHub Dark
+#theme = JetBrains Darcula
+#theme = Cursor Dark
+mouse-scroll-multiplier = 1
+cursor-style = block
+cursor-style-blink = false
+shell-integration-features = no-cursor
+mouse-hide-while-typing = true

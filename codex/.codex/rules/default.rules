@@ -1,0 +1,8 @@
+prefix_rule(pattern=["aws", "logs"], decision="allow")
+prefix_rule(pattern=["git", "commit"], decision="allow")
+prefix_rule(pattern=["git", "push"], decision="prompt")
+prefix_rule(pattern=["git"], decision="allow")
+prefix_rule(pattern=["glab"], decision="allow")
+prefix_rule(pattern=["uv", "run", "python", "-m", "pytest", "--version"], decision="allow")
+prefix_rule(pattern=["uv", "run", "ruff", "check", "core/views/entities.py", "core/views/reporting_groups.py", "core/views/asset_categories.py"], decision="allow")
+prefix_rule(pattern=["./gradlew"], decision="allow")
