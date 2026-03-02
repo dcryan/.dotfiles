@@ -4,39 +4,29 @@
 eval "$(direnv hook zsh)"
 
 
-
-#################
-# Brew Completion
-#################
-# Must be done before initializing Oh-My-Zsh.
-# FPATH=$(brew --prefix)/share/zsh/site-functions:$FPATH
+###################
+# Starship Prompt #
+###################
+eval "$(starship init zsh)"
 
 
+######################
+# Completion System  #
+######################
+autoload -Uz compinit && compinit
 
-############
-# Oh My Zsh
-############
 
-# Path to your oh-my-zsh installation.
-export ZSH="/Users/danielryan/.oh-my-zsh"
+###############
+# Zsh Plugins #
+###############
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-ZSH_THEME=""
-
-plugins=(
-  git
-  docker
-  docker-compose
-  zsh-autosuggestions
-  zsh-syntax-highlighting
-  fzf
-)
-
-# Fixes issue wiht zsh-autosuggestions for slow pasting
+# Fixes issue with zsh-autosuggestions for slow pasting
 zstyle ':bracketed-paste-magic' active-widgets '.self-*'
 
-source $ZSH/oh-my-zsh.sh
-
-# User configuration
+# Docker completions
+source <(docker completion zsh)
 
 
 
@@ -44,8 +34,10 @@ source $ZSH/oh-my-zsh.sh
 # NVM
 ######
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+# Load nvm without activating a node version — faster startup.
+# load-nvmrc below handles setting the right version for the current directory.
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 # Calls `nvm use` automatically with a `.nvmrc` file in the current directory.
 autoload -U add-zsh-hook
