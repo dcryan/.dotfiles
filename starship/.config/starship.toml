@@ -6,4 +6,4 @@ format = """
 $directory$git_branch$git_status$line_break$character"""
 
 # Right prompt — context and runtime info, aligned right on the input line
-right_format = """$nodejs$python$golang$rust$aws$gcloud$cmd_duration"""
+right_format = """$nodejs$python$golang$rust$terraform$aws$gcloud$cmd_duration"""
