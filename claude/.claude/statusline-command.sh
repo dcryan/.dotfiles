@@ -25,18 +25,11 @@ if [ -n "$used_pct" ]; then
   elif [ "$filled" -ge 6 ]; then bar_color="\033[33m"
   else bar_color="\033[32m"
   fi
-  ctx_bar=$(printf " ${bar_color}%s %d%%\033[0m" "$bar" "$used_pct")
+  ctx_bar=$(printf "${bar_color}%s %d%%\033[0m" "$bar" "$used_pct")
 fi
 
-# Line 1
-printf "\033[36m%s\033[0m \033[32m(%s)\033[0m%s \033[35m%s\033[0m%s\n" \
-  "$(basename "$current_dir")" \
-  "$branch" \
-  "$aws_profile" \
-  "$model" \
-  "$ctx_bar"
-
-# Line 2: git diff stat (staged + unstaged), only if there are changes
+# Git diff stat
+git_changes=""
 if [ "$branch" != "no-git" ]; then
   shortstat=$(git diff --shortstat HEAD 2>/dev/null)
   if [ -n "$shortstat" ]; then
@@ -45,14 +38,27 @@ if [ "$branch" != "no-git" ]; then
     [ -z "$insertions" ] && insertions=0
     [ -z "$deletions" ] && deletions=0
     if [ "$insertions" -gt 0 ] || [ "$deletions" -gt 0 ]; then
-      printf "\033[32m+%s\033[0m \033[31m-%s\033[0m\n" "$insertions" "$deletions"
+      git_changes=$(printf " \033[32m+%s\033[0m \033[31m-%s\033[0m" "$insertions" "$deletions")
     fi
   fi
 fi
 
+# Line 1: directory, aws, model
+printf "\033[36m%s\033[0m%s \033[35m%s\033[0m\n" \
+  "$(basename "$current_dir")" \
+  "$aws_profile" \
+  "$model"
+
+# Line 2: context bar, git branch, git changes
+line2=""
+[ -n "$ctx_bar" ] && line2="${ctx_bar}"
+[ "$branch" != "no-git" ] && line2="${line2} \033[32m(${branch})\033[0m"
+[ -n "$git_changes" ] && line2="${line2}${git_changes}"
+[ -n "$line2" ] && printf '%b' "${line2}\n"
+
 # Line 3: docker container URLs for the current project
 # Matches containers by docker compose project label OR container name containing the project basename
-# Shows service name alongside each port for clarity
+# Shows service name alongside each port as clickable links
 if command -v docker &>/dev/null && docker info &>/dev/null 2>&1; then
   project_name=$(basename "$current_dir" | tr '[:upper:]' '[:lower:]' | tr -cs 'a-z0-9' '-' | sed 's/-*$//')
   declare -A seen_ports
