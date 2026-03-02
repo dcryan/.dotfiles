@@ -52,37 +52,34 @@ fi
 
 # Line 3: docker container URLs for the current project
 # Matches containers by docker compose project label OR container name containing the project basename
+# Shows service name alongside each port for clarity
 if command -v docker &>/dev/null && docker info &>/dev/null 2>&1; then
   project_name=$(basename "$current_dir" | tr '[:upper:]' '[:lower:]' | tr -cs 'a-z0-9' '-' | sed 's/-*$//')
-  docker_urls=""
+  declare -A seen_ports
+  docker_entries=""
   while IFS= read -r line; do
     [ -z "$line" ] && continue
-    # Extract compose project label and container name
     compose_project=$(echo "$line" | jq -r '.Labels // "" | split(",") | map(select(startswith("com.docker.compose.project="))) | .[0] // "" | split("=")[1] // ""' 2>/dev/null)
+    service_name=$(echo "$line" | jq -r '.Labels // "" | split(",") | map(select(startswith("com.docker.compose.service="))) | .[0] // "" | split("=")[1] // ""' 2>/dev/null)
     container_name=$(echo "$line" | jq -r '.Names // ""' 2>/dev/null)
-    # Check if this container belongs to the current project
+    # Fall back to container name if no compose service label
+    [ -z "$service_name" ] && service_name="$container_name"
     match=0
     [ "$compose_project" = "$project_name" ] && match=1
     echo "$container_name" | grep -qi "$project_name" && match=1
     if [ "$match" = "1" ]; then
-      # Extract host ports bound to 0.0.0.0 or 127.0.0.1 (i.e. published to localhost)
       ports=$(echo "$line" | jq -r '.Ports // ""' 2>/dev/null)
       while IFS= read -r port_entry; do
         host_port=$(echo "$port_entry" | grep -oE '(0\.0\.0\.0|127\.0\.0\.1):[0-9]+' | grep -oE '[0-9]+$')
-        if [ -n "$host_port" ]; then
-          url="http://localhost:${host_port}"
-          # Avoid duplicates
-          echo "$docker_urls" | grep -qF "$url" || docker_urls="${docker_urls} ${url}"
+        if [ -n "$host_port" ] && [ -z "${seen_ports[$host_port]}" ]; then
+          seen_ports[$host_port]=1
+          docker_entries="${docker_entries} \033[36m${service_name}\033[34m:${host_port}"
         fi
       done <<< "$(echo "$ports" | tr ',' '\n')"
     fi
   done < <(docker ps --format '{{json .}}' 2>/dev/null)
 
-  if [ -n "$docker_urls" ]; then
-    printf "\033[34m"
-    for url in $docker_urls; do
-      printf "%s " "$url"
-    done
-    printf "\033[0m\n"
+  if [ -n "$docker_entries" ]; then
+    printf "\033[34m${docker_entries}\033[0m\n"
   fi
 fi
