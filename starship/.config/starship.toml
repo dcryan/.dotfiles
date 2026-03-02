@@ -1,2 +1,9 @@
 # Starship configuration
 # Docs: https://starship.rs/config/
+
+# Left prompt — directory and git info on their own line, then the input line
+format = """
+$directory$git_branch$git_status$line_break$character"""
+
+# Right prompt — context and runtime info, aligned right on the input line
+right_format = """$nodejs$python$golang$rust$aws$gcloud$cmd_duration"""
