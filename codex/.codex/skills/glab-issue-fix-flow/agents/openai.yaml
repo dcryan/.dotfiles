@@ -1,0 +1,4 @@
+interface:
+  display_name: "GitLab Issue Fix Flow"
+  short_description: "Implement issues and open closing MRs via glab"
+  default_prompt: "Use $glab-issue-fix-flow for issue #123 and prepare plan, branch, commit, push, and MR closure."
