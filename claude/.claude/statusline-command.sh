@@ -114,24 +114,18 @@ if [ "$branch" != "no-git" ]; then
 fi
 
 # ---------------------------------------------------------------------------
-# Line 1: directory, aws, model
+# Line 1: directory, git branch, aws, model, context bar, git changes
 # ---------------------------------------------------------------------------
-printf "\033[36m%s\033[0m%s \033[35m%s\033[0m\n" \
-  "$(basename "$current_dir")" \
-  "$aws_profile" \
-  "$model"
+line1=$(printf "\033[36m%s\033[0m" "$(basename "$current_dir")")
+[ "$branch" != "no-git" ] && line1="${line1} \033[32m(${branch})\033[0m"
+[ -n "$aws_profile" ] && line1="${line1}${aws_profile}"
+line1="${line1} \033[35m${model}\033[0m"
+[ -n "$ctx_bar" ] && line1="${line1} ${ctx_bar}"
+[ -n "$git_changes" ] && line1="${line1}${git_changes}"
+printf '%b' "${line1}\n"
 
 # ---------------------------------------------------------------------------
-# Line 2: context bar, git branch, git changes
-# ---------------------------------------------------------------------------
-line2=""
-[ -n "$ctx_bar" ] && line2="${ctx_bar}"
-[ "$branch" != "no-git" ] && line2="${line2} \033[32m(${branch})\033[0m"
-[ -n "$git_changes" ] && line2="${line2}${git_changes}"
-[ -n "$line2" ] && printf '%b' "${line2}\n"
-
-# ---------------------------------------------------------------------------
-# Line 3: docker container URLs (cached)
+# Line 2: docker container URLs (cached)
 # Matches containers by docker compose project label OR container name.
 # Shows service name alongside each port as a clickable OSC 8 link.
 # ---------------------------------------------------------------------------
