@@ -13,7 +13,8 @@
       "Skill(playwright-cli)",
       "WebSearch",
       "WebFetch(domain:gitlab.com)",
-      "WebFetch(domain:github.com)"
+      "WebFetch(domain:github.com)",
+      "Bash(playwright-cli:*)"
     ],
     "ask": [
       "Bash(git push:*)",
@@ -68,6 +69,5 @@
   },
   "outputStyle": "Explanatory",
   "alwaysThinkingEnabled": true,
-  "skipDangerousModePermissionPrompt": true,
-  "model": "opus"
+  "skipDangerousModePermissionPrompt": true
 }
