@@ -79,13 +79,16 @@ if [ -n "$used_pct" ]; then
     else              print "█"
   }')
   if [ "$(echo "$used_pct" | awk '{print ($1 >= 80)}')" = "1" ]; then
-    bar_color="\033[31m"
+    fg="\033[31m"           # bright red foreground
+    bg="\033[48;5;52m"      # dark red background
   elif [ "$(echo "$used_pct" | awk '{print ($1 >= 60)}')" = "1" ]; then
-    bar_color="\033[33m"
+    fg="\033[33m"           # bright yellow foreground
+    bg="\033[48;5;58m"      # dark yellow/olive background
   else
-    bar_color="\033[32m"
+    fg="\033[32m"           # bright green foreground
+    bg="\033[48;5;22m"      # dark green background
   fi
-  ctx_bar=$(printf "${bar_color}%s %d%%\033[0m" "$block" "$used_pct")
+  ctx_bar=$(printf "${bg}${fg}%s\033[0m ${fg}%d%%\033[0m" "$block" "$used_pct")
 fi
 
 # ---------------------------------------------------------------------------
