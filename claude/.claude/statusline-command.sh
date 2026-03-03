@@ -62,20 +62,30 @@ aws_profile=""
 [ -n "$AWS_PROFILE" ] && aws_profile=$(printf " \033[33maws:%s\033[0m" "$AWS_PROFILE")
 
 # ---------------------------------------------------------------------------
-# Context usage bar (comes from stdin JSON, no caching needed)
+# Context usage block (comes from stdin JSON, no caching needed)
+# A single vertical block character scaled to usage, with color coding.
 # ---------------------------------------------------------------------------
 ctx_bar=""
 if [ -n "$used_pct" ]; then
-  filled=$(echo "$used_pct" | awk '{printf "%d", $1 / 10}')
-  empty=$((10 - filled))
-  bar=""
-  for i in $(seq 1 $filled); do bar="${bar}█"; done
-  for i in $(seq 1 $empty); do bar="${bar}░"; done
-  if [ "$filled" -ge 8 ]; then bar_color="\033[31m"
-  elif [ "$filled" -ge 6 ]; then bar_color="\033[33m"
-  else bar_color="\033[32m"
+  block=$(echo "$used_pct" | awk '{
+    p = int($1)
+    if      (p <= 12) print "▁"
+    else if (p <= 25) print "▂"
+    else if (p <= 37) print "▃"
+    else if (p <= 50) print "▄"
+    else if (p <= 62) print "▅"
+    else if (p <= 75) print "▆"
+    else if (p <= 87) print "▇"
+    else              print "█"
+  }')
+  if [ "$(echo "$used_pct" | awk '{print ($1 >= 80)}')" = "1" ]; then
+    bar_color="\033[31m"
+  elif [ "$(echo "$used_pct" | awk '{print ($1 >= 60)}')" = "1" ]; then
+    bar_color="\033[33m"
+  else
+    bar_color="\033[32m"
   fi
-  ctx_bar=$(printf "${bar_color}%s %d%%\033[0m" "$bar" "$used_pct")
+  ctx_bar=$(printf "${bar_color}%s %d%%\033[0m" "$block" "$used_pct")
 fi
 
 # ---------------------------------------------------------------------------
