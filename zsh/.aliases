@@ -1,3 +1,6 @@
+alias l='ls -lFh'
+alias la='ls -lAFh'
+alias ll='ls -lFh'
 alias tree="tree --filelimit 20 --dirsfirst -C -I 'node_modules'"
 alias weather='curl -4 http://wttr.in/Boise'
 alias vim="nvim"
