@@ -1,6 +1,7 @@
 {
   "env": {
-    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
+    "CLAUDE_CODE_TENGU_CCR_BRIDGE": "1"
   },
   "permissions": {
     "allow": [
@@ -14,8 +15,40 @@
       "WebSearch",
       "WebFetch(domain:gitlab.com)",
       "WebFetch(domain:github.com)",
-      "Bash(playwright-cli:*)"
+      "Bash(playwright-cli:*)",
+      "Bash(python manage.py makemigrations:*)",
+      "Bash(python manage.py migrate:*)",
+      "Bash(python manage.py test:*)",
+      "Bash(python manage.py check:*)",
+      "Bash(python manage.py runserver:*)",
+      "Bash(.venv/bin/python:*)",
+      "Bash(uv sync:*)",
+      "Bash(black:*)",
+      "Bash(ruff:*)",
+      "Bash(.venv/bin/black:*)",
+      "Bash(.venv/bin/ruff:*)",
+      "Bash(cat:*)",
+      "Bash(docker:*)",
+      "Bash(find:*)",
+      "Bash(glab:*)",
+      "Bash(ls:*)",
+      "Bash(npm run:*)",
+      "Bash(python:*)",
+      "Bash(source:*)",
+      "Bash(terraform:*)",
+      "Bash(xargs:*)",
+      "Skill(git-commit)",
+      "Bash(grep:*)",
+      "Bash(sort:*)",
+      "Bash(wc:*)",
+      "Skill(gitlab-issue)",
+      "mcp__sentry__search_issues",
+      "mcp__sentry__search_events",
+      "mcp__sentry__find_projects",
+      "WebFetch(domain:logs.us-west-2.amazonaws.com)",
+      "WebFetch(domain:ecs.us-west-2.amazonaws.com)"
     ],
+    "deny": [],
     "ask": [
       "Bash(git push:*)",
       "Bash(terraform apply:*)"
