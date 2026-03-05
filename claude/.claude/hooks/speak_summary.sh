@@ -10,9 +10,9 @@ TRANSCRIPT_PATH=$(echo "$INPUT" | jq -r '.transcript_path')
 # Extract spoken summary from transcript
 if [ -f "$TRANSCRIPT_PATH" ]; then
     # Look for [SPOKEN_SUMMARY]: marker in last assistant message
-    # Get the last text block (summary is always at the end, after any tool calls)
+    # Search all text blocks (not just last) since tool_use blocks may follow the summary
     MSG=$(tail -100 "$TRANSCRIPT_PATH" | \
-          jq -rs '[.[] | select(.type == "assistant" and .message.role == "assistant")] | last | [.message.content[] | select(.type == "text") | .text] | last // empty' | \
+          jq -rs '[.[] | select(.type == "assistant" and .message.role == "assistant")] | last | [.message.content[] | select(.type == "text") | .text] | join("\n")' | \
           grep -o '\[SPOKEN_SUMMARY\]: .*' | \
           sed 's/\[SPOKEN_SUMMARY\]: //' | \
           head -c 200)
