@@ -16,7 +16,7 @@ eval "$(starship init zsh)"
 # Add Homebrew completions to fpath before compinit so Homebrew-installed
 # completion scripts (git, etc.) are found.
 if type brew &>/dev/null; then
-  fpath=($(brew --prefix)/share/zsh/site-functions $fpath)
+  fpath=($fpath $(brew --prefix)/share/zsh/site-functions)
 fi
 autoload -Uz compinit && compinit
 
