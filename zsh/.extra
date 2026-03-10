@@ -11,6 +11,13 @@ eval "$(starship init zsh)"
 
 
 ######################
+# Zsh Options        #
+######################
+# Type a directory name to cd into it without typing 'cd'
+setopt AUTO_CD
+
+
+######################
 # Completion System  #
 ######################
 # Add Homebrew completions to fpath before compinit so Homebrew-installed
