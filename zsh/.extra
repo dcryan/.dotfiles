@@ -46,9 +46,7 @@ source <(docker completion zsh)
 # NVM
 ######
 export NVM_DIR="$HOME/.nvm"
-# Load nvm without activating a node version — faster startup.
-# load-nvmrc below handles setting the right version for the current directory.
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 # Calls `nvm use` automatically with a `.nvmrc` file in the current directory.
