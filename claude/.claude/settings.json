@@ -46,13 +46,14 @@
       "mcp__sentry__search_events",
       "mcp__sentry__find_projects",
       "WebFetch(domain:logs.us-west-2.amazonaws.com)",
-      "WebFetch(domain:ecs.us-west-2.amazonaws.com)"
+      "WebFetch(domain:ecs.us-west-2.amazonaws.com)",
+      "Bash(playwright-cli eval:*)",
+      "WebFetch(domain:iam.amazonaws.com)",
+      "Bash(git add:*)",
+      "Bash(npm list:*)"
     ],
     "deny": [],
-    "ask": [
-      "Bash(git push:*)",
-      "Bash(terraform apply:*)"
-    ],
+    "ask": [],
     "defaultMode": "default"
   },
   "hooks": {
@@ -84,7 +85,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "afplay /System/Library/Sounds/Basso.aiff"
+            "command": "bash ~/.claude/hooks/should_mute.sh || afplay /System/Library/Sounds/Basso.aiff"
           }
         ]
       }
@@ -102,5 +103,6 @@
   },
   "outputStyle": "Explanatory",
   "alwaysThinkingEnabled": true,
+  "voiceEnabled": true,
   "skipDangerousModePermissionPrompt": true
 }
