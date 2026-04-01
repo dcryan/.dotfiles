@@ -48,9 +48,10 @@
 # # Just for example:
 # resize-overlay-duration = 4s 200ms
 
-font-family = "Monaspace Neon"
-#font-family = "Symbols Nerd Font"
-#font-family = "JetBrains Mono"
+#font-family = "Monaspace Neon"
+
+font-family = "JetBrains Mono"
+font-family = "Symbols Nerd Font"
 font-size = 20
 
 macos-titlebar-style = hidden
