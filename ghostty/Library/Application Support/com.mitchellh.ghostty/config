@@ -49,9 +49,19 @@
 # resize-overlay-duration = 4s 200ms
 
 #font-family = "Monaspace Neon"
-
 font-family = "JetBrains Mono"
-font-family = "Symbols Nerd Font"
+# Stacked fallbacks: Menlo covers dingbats such as ✢ ✳ ✶ ✽ on a monospace
+# grid. Monaspace Neon now includes U+23FA (⏺), so Ghostty can avoid the
+# Apple Color Emoji fallback without using a math font for that glyph.
+font-family = "Symbols Nerd Font Mono"
+font-family = "Menlo"
+font-family = "STIX Two Math"
+# Force these symbols to specific fallback fonts for a more uniform look.
+# Menlo covers the dingbats consistently, and Monaspace Neon provides U+23FA.
+font-codepoint-map = U+2722,U+2733,U+2736,U+273D=Menlo
+font-codepoint-map = U+23FA=Monaspace Neon
+
+
 font-size = 20
 
 macos-titlebar-style = hidden
