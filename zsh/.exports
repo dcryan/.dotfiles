@@ -10,6 +10,12 @@ export PYENV_ROOT="$HOME/.pyenv"
 
 export ANDROID_HOME=$HOME/Library/Android/sdk
 
-# Made a symlink to the actual file
-# https://developer.1password.com/docs/ssh/get-started/#step-4-configure-your-ssh-or-git-client
-export SSH_AUTH_SOCK="~/.1password/agent.sock"
+# SSH keys are served by the macOS keychain-backed ssh-agent (the launchd
+# default), NOT the 1Password agent — so using a key never triggers a
+# 1Password approval prompt. Keys live on disk in ~/.ssh (a copy is kept in
+# 1Password as cold backup); ~/.ssh/config sets UseKeychain + AddKeysToAgent,
+# so each key's passphrase is unlocked from the login keychain once and cached.
+#
+# To route SSH back through the 1Password agent, uncomment this line
+# (use $HOME, not ~ — a tilde inside double quotes is NOT expanded):
+# export SSH_AUTH_SOCK="$HOME/.1password/agent.sock"
