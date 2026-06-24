@@ -45,6 +45,15 @@ $ stow --restow */
 
 ```
 
+> **Note — cmux sidebars:** the `cmux` package ships
+> `~/.config/cmux/sidebars/usage.swift`. cmux follows a symlinked *file* but **not** a
+> symlinked *directory*, and plain `stow */` folds `sidebars/` into a broken dir-symlink
+> (cmux then reports "0 valid sidebars"). Re-stow cmux with no folding:
+>
+> ```
+> $ mkdir -p ~/.config/cmux/sidebars && stow --no-folding --restow cmux
+> ```
+
 3. Install Homebrew and packages.
 
 This will install Homebrew, and `brew install` all packages and casks.
