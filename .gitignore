@@ -23,3 +23,6 @@ claude/.claude.json
 codex/.playwright-cli/
 codex/airbnb-home.yml
 codex/filters-current.yml
+
+# Playwright CLI skill runtime artifacts
+claude/.claude/skills/playwright-cli/.playwright-cli/
