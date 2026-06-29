@@ -1,31 +1,28 @@
 model = "gpt-5.5"
 model_reasoning_effort = "high"
-notify = [
-    "bash",
-    "-lc",
-    "afplay /System/Library/Sounds/Bottle.aiff",
-]
 personality = "pragmatic"
 service_tier = "fast"
 
+notify = ["/Users/danielryan/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient", "turn-ended", "--previous-notify", "[\"bash\",\"-lc\",\"afplay \\/System\\/Library\\/Sounds\\/Bottle.aiff\"]"]
+
 [features]
 experimental_use_rmcp_client = true
-js_repl = true
+js_repl = false
 multi_agent = true
 
 [marketplaces.openai-bundled]
-last_updated = "2026-05-05T18:55:06Z"
+last_updated = "2026-06-19T10:41:01Z"
 source_type = "local"
 source = "/Users/danielryan/.codex/.tmp/bundled-marketplaces/openai-bundled"
 
 [marketplaces.openai-primary-runtime]
-last_updated = "2026-05-04T12:22:54Z"
-source = "/Users/danielryan/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
+last_updated = "2026-06-08T23:36:15Z"
 source_type = "local"
+source = "/Users/danielryan/.cache/codex-runtimes/codex-primary-runtime/plugins/openai-primary-runtime"
 
 [marketplaces.claude-plugins-official]
-last_updated = "2026-05-05T18:55:06Z"
-last_revision = "ac45fdae4b7af187b5624599ab054090dedadd94"
+last_updated = "2026-06-23T15:11:19Z"
+last_revision = "b549903c7308db32615e6639c717ee91cae28ec6"
 source_type = "git"
 source = "https://github.com/anthropics/claude-plugins-official.git"
 
@@ -51,6 +48,25 @@ args = ["-y", "chrome-devtools-mcp@latest"]
 command = "npx"
 enabled = true
 
+[mcp_servers.node_repl]
+args = []
+command = "/Applications/Codex.app/Contents/Resources/cua_node/bin/node_repl"
+startup_timeout_sec = 120
+
+[mcp_servers.node_repl.env]
+NODE_REPL_NATIVE_PIPE_CONNECT_TIMEOUT_MS = "1000"
+NODE_REPL_NODE_MODULE_DIRS = "/Applications/Codex.app/Contents/Resources/cua_node/lib/node_modules"
+NODE_REPL_NODE_PATH = "/Applications/Codex.app/Contents/Resources/cua_node/bin/node"
+NODE_REPL_TRUSTED_CODE_PATHS = "/Users/danielryan/.codex"
+CODEX_HOME = "/Users/danielryan/.codex"
+NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "843b151e6459c4593a4a9c5bf817cc51e28fc29afe6b75990deceb2f914995ac"
+BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
+NODE_REPL_INSTRUCTIONS_USE_CASE_BROWSER = "Control the in-app browser in conjunction with the Browser Plugin."
+NODE_REPL_INSTRUCTIONS_USE_CASE_CHROME = "Control the Chrome browser in conjunction with the Chrome Plugin. Prefer this method of controlling Chrome over alternatives (such as Computer Use) unless the user explicitly mentions an alternative."
+BROWSER_USE_CODEX_APP_BUILD_FLAVOR = "prod"
+BROWSER_USE_CODEX_APP_VERSION = "26.616.31447"
+CODEX_CLI_PATH = "/Applications/Codex.app/Contents/Resources/codex"
+
 [plugins."documents@openai-primary-runtime"]
 enabled = true
 
@@ -72,7 +88,7 @@ enabled = true
 [plugins."imessage@claude-plugins-official"]
 enabled = true
 
-[plugins."browser-use@openai-bundled"]
+[plugins."browser@openai-bundled"]
 enabled = true
 
 [projects."/Users/danielryan/.codex"]
@@ -99,6 +115,15 @@ trust_level = "trusted"
 [projects."/Users/danielryan/Development/zerrtech/liferaft"]
 trust_level = "trusted"
 
+[projects."/Users/danielryan/.dotfiles/nvim/.config/nvim"]
+trust_level = "trusted"
+
+[projects."/Users/danielryan/Development/stratavore"]
+trust_level = "trusted"
+
+[projects."/Users/danielryan/Development/biowai"]
+trust_level = "trusted"
+
 [shell_environment_policy]
 inherit = "core"
 
@@ -106,3 +131,30 @@ inherit = "core"
 CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS = "1"
 CLAUDE_CODE_NO_FLICKER = "1"
 CLAUDE_CODE_SCROLL_SPEED = "3"
+
+[tui.model_availability_nux]
+"gpt-5.5" = 4
+
+[hooks.state]
+
+[hooks.state."/Users/danielryan/.codex/hooks.json:session_start:0:0"]
+trusted_hash = "sha256:6dea689fb20ef630d085641539fe40d8c637bcae17f4db2db6022baf1b07c3a3"
+
+[hooks.state."/Users/danielryan/.codex/hooks.json:stop:0:0"]
+trusted_hash = "sha256:98d75f812a7e3c490e597413097e4af07e37b693af0a01f181977399b26b4466"
+
+[hooks.state."/Users/danielryan/.codex/hooks.json:stop:0:1"]
+trusted_hash = "sha256:633214dc845c65efe81ee97322feb2162ddb3b85f522058ad967396a4f64b0d6"
+
+[hooks.state."/Users/danielryan/.codex/hooks.json:user_prompt_submit:0:0"]
+trusted_hash = "sha256:5867e2117743ef468689ee001e97f0adfcdbb9f6fb5c686a98bd455792045ed5"
+
+[hooks.state."/Users/danielryan/.codex/hooks.json:user_prompt_submit:0:1"]
+trusted_hash = "sha256:a1195a85e3d76f81ad274f99184da7b5b2c35c6206799cc4fb964495d4766682"
+
+[desktop]
+ambient-suggestions-enabled = true
+conversationDetailMode = "STEPS_COMMANDS"
+
+[desktop.open-in-target-preferences]
+global = "sublimeText"
