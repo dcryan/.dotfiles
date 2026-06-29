@@ -69,8 +69,7 @@ font-size = 20
 macos-titlebar-style = hidden
 
 # Find themes here: https://iterm2colorschemes.com/
-#theme = GitHub Dark
-theme = GitHub
+theme = light:GitHub, dark:GitHub Dark
 #theme = JetBrains Darcula
 #theme = Cursor Dark
 mouse-scroll-multiplier = 1
