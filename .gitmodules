@@ -7,3 +7,6 @@
 [submodule "ssh-configs/.ssh"]
 	path = ssh/.ssh
 	url = git@github.com:dcryan/.ssh.git
+[submodule "claude/.claude"]
+	path = claude/.claude
+	url = git@github.com:dcryan/.dotfiles-claude.git
