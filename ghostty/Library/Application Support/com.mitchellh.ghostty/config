@@ -51,17 +51,18 @@
 font-family = "Monaspace Neon"
 #font-family = "JetBrains Mono"
 
-# Stacked fallbacks: Menlo covers dingbats such as ✢ ✳ ✶ ✽ on a monospace
+# Stacked fallbacks: Menlo covers dingbats such as ✢ ✳ ✶ ✻ ✽ on a monospace
 # grid. Monaspace Neon now includes U+23FA (⏺), so Ghostty can avoid the
 # Apple Color Emoji fallback without using a math font for that glyph.
 font-family = "Symbols Nerd Font Mono"
 font-family = "Menlo"
 font-family = "STIX Two Math"
 
-# Force these symbols to specific fallback fonts for a more uniform look.
-# Menlo covers the dingbats consistently, and Monaspace Neon provides U+23FA.
-font-codepoint-map = U+2722,U+2733,U+2736,U+273D=Menlo
-font-codepoint-map = U+23FA=Monaspace Neon
+# NOTE: do not font-codepoint-map the dingbats. On Ghostty 1.3.1 that renders
+# the wrong glyph entirely (✢ came out as ÷, ✳ as ⊑) — the codepoint is shaped
+# against one font and rasterized with another, so you get whatever lives at
+# that glyph index in the wrong face. Menlo covers U+2722/2733/2736/273B/273D
+# natively and is in the fallback chain above, which resolves them correctly.
 
 
 font-size = 20
