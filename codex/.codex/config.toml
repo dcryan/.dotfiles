@@ -54,7 +54,7 @@ args = ["-c", ". \"$HOME/.personal\" 2>/dev/null; exec npx -y @upstash/context7-
 url = "https://mcp.notion.com/mcp"
 
 [mcp_servers.computer-use]
-command = "./Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient"
+command = "/Users/danielryan/.codex/computer-use/Codex Computer Use.app/Contents/SharedSupport/SkyComputerUseClient.app/Contents/MacOS/SkyComputerUseClient"
 args = ["mcp"]
 cwd = "."
 enabled = false
@@ -142,8 +142,6 @@ CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS = "1"
 CLAUDE_CODE_NO_FLICKER = "1"
 CLAUDE_CODE_SCROLL_SPEED = "3"
 BROWSER_USE_AVAILABLE_BACKENDS = "chrome,iab"
-NODE_REPL_TRUSTED_BROWSER_CLIENT_SHA256S = "6d25aa7656feac858f3a3bdaea5bcbab0dbfd426c9de8e6931ce90c399ee8e4f,e13fd947e846d3d306e9249dd3c73d14931b6494803dbafb16cef85e6add9506"
-NODE_REPL_TRUSTED_CODE_PATHS = "/Users/danielryan/.codex"
 
 [tui]
 status_line = ["model-with-reasoning", "current-dir", "project-name", "git-branch", "branch-changes", "run-state", "context-used", "five-hour-limit"]
