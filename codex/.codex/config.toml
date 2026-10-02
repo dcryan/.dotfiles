@@ -193,7 +193,7 @@ trusted_hash = "sha256:5867e2117743ef468689ee001e97f0adfcdbb9f6fb5c686a98bd45579
 trusted_hash = "sha256:a1195a85e3d76f81ad274f99184da7b5b2c35c6206799cc4fb964495d4766682"
 
 [desktop]
-ambient-suggestions-enabled = true
+ambient-suggestions-enabled = false
 conversationDetailMode = "STEPS_PROSE"
 followUpQueueMode = "steer"
 dock-icon-preference = "codex-system"
