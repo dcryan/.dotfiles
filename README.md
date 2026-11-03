@@ -56,10 +56,20 @@ $ stow --restow */
 > $ mkdir -p ~/.claude ~/.codex ~/.pi/agent ~/.agents && stow --restow agents
 > ```
 >
-> On the VPS, `~/.claude/settings.json` must point at `settings.vps.json` instead.
-> Stow can't pick a file per machine, so re-point it after every stow:
+> Submodules check out without a branch; put `agents` on `main` so commits made
+> on the machine land on a branch and push normally:
+> `git -C agents checkout main`.
+>
+> **On the VPS**, Claude uses `settings.vps.json` and Codex keeps its own config
+> (the shared ones carry Mac paths). Stow can't pick files per machine, so skip
+> them with `--ignore` (matched against the END of the path, so no `^/` anchor)
+> and link the VPS settings by hand:
 >
 > ```
+> $ stow --restow \
+>     --ignore='\.claude/settings\.json' --ignore='\.codex/config\.toml' \
+>     --ignore='\.codex/rules' --ignore='\.codex/hooks\.json' --ignore='\.codex/hooks' \
+>     agents
 > $ ln -sfn ~/.dotfiles/agents/.claude/settings.vps.json ~/.claude/settings.json
 > ```
 
