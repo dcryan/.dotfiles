@@ -16,16 +16,5 @@ session.vim
 
 zsh/.personal
 
-# Claude Code session data (contains sensitive conversation history)
-claude/.claude.json
-
-# Codex session artifacts
-codex/.playwright-cli/
-codex/airbnb-home.yml
-codex/filters-current.yml
-
-# Playwright CLI skill runtime artifacts
-claude/.claude/skills/playwright-cli/.playwright-cli/
-
 # Per-machine Claude Code permissions for this repo
 .claude/settings.local.json

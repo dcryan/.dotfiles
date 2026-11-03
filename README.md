@@ -45,6 +45,24 @@ $ stow --restow */
 
 ```
 
+> **Note: the `agents` package** (Claude Code, Codex and Pi config, shared skills
+> and `AGENTS.md`) is a submodule, so fetch it first:
+> `git submodule update --init agents`. Then create the tools' home dirs
+> **before** stowing. Each one holds runtime state (sessions, auth, caches); if a
+> dir is missing, stow folds it into a single symlink and that state gets written
+> into the repo:
+>
+> ```
+> $ mkdir -p ~/.claude ~/.codex ~/.pi/agent ~/.agents && stow --restow agents
+> ```
+>
+> On the VPS, `~/.claude/settings.json` must point at `settings.vps.json` instead.
+> Stow can't pick a file per machine, so re-point it after every stow:
+>
+> ```
+> $ ln -sfn ~/.dotfiles/agents/.claude/settings.vps.json ~/.claude/settings.json
+> ```
+
 3. Install Homebrew and packages.
 
 This will install Homebrew, and `brew install` all packages and casks.
