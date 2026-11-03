@@ -26,3 +26,6 @@ codex/filters-current.yml
 
 # Playwright CLI skill runtime artifacts
 claude/.claude/skills/playwright-cli/.playwright-cli/
+
+# Per-machine Claude Code permissions for this repo
+.claude/settings.local.json
