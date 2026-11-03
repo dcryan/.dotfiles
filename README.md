@@ -60,17 +60,23 @@ $ stow --restow */
 > on the machine land on a branch and push normally:
 > `git -C agents checkout main`.
 >
-> **On the VPS**, Claude uses `settings.vps.json` and Codex keeps its own config
-> (the shared ones carry Mac paths). Stow can't pick files per machine, so skip
-> them with `--ignore` (matched against the END of the path, so no `^/` anchor)
-> and link the VPS settings by hand:
+> **Servers are the default.** On the VPS or any other Linux box, the plain
+> `stow --restow agents` above is all it takes.
+>
+> **The MacBook is the exception.** Its Claude settings (tmux-agentbar hooks)
+> and Codex config, rules and hooks are `*.mac*` files that the package's
+> `.stow-local-ignore` never stows. Skip the server defaults and link the Mac
+> files over them by hand (stow's `--ignore` matches the END of the path, so no
+> `^/` anchor):
 >
 > ```
 > $ stow --restow \
 >     --ignore='\.claude/settings\.json' --ignore='\.codex/config\.toml' \
->     --ignore='\.codex/rules' --ignore='\.codex/hooks\.json' --ignore='\.codex/hooks' \
->     agents
-> $ ln -sfn ~/.dotfiles/agents/.claude/settings.vps.json ~/.claude/settings.json
+>     --ignore='\.codex/rules' agents
+> $ ln -sfn ../.dotfiles/agents/.claude/settings.mac.json ~/.claude/settings.json
+> $ ln -sfn ../.dotfiles/agents/.codex/config.mac.toml   ~/.codex/config.toml
+> $ ln -sfn ../.dotfiles/agents/.codex/rules.mac         ~/.codex/rules
+> $ ln -sfn ../.dotfiles/agents/.codex/hooks.mac.json    ~/.codex/hooks.json
 > ```
 
 3. Install Homebrew and packages.
