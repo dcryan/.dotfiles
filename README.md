@@ -72,7 +72,8 @@ $ stow --restow */
 > ```
 > $ stow --restow \
 >     --ignore='\.claude/settings\.json' --ignore='\.codex/config\.toml' \
->     --ignore='\.codex/rules' --ignore='\.pi/agent/mcp\.json' agents
+>     --ignore='\.codex/rules' --ignore='\.codex/hooks\.json' \
+>     --ignore='\.pi/agent/mcp\.json' agents
 > $ ln -sfn ../.dotfiles/agents/.claude/settings.mac.json ~/.claude/settings.json
 > $ ln -sfn ../.dotfiles/agents/.codex/config.mac.toml   ~/.codex/config.toml
 > $ ln -sfn ../.dotfiles/agents/.codex/rules.mac         ~/.codex/rules
