@@ -72,11 +72,12 @@ $ stow --restow */
 > ```
 > $ stow --restow \
 >     --ignore='\.claude/settings\.json' --ignore='\.codex/config\.toml' \
->     --ignore='\.codex/rules' agents
+>     --ignore='\.codex/rules' --ignore='\.pi/agent/mcp\.json' agents
 > $ ln -sfn ../.dotfiles/agents/.claude/settings.mac.json ~/.claude/settings.json
 > $ ln -sfn ../.dotfiles/agents/.codex/config.mac.toml   ~/.codex/config.toml
 > $ ln -sfn ../.dotfiles/agents/.codex/rules.mac         ~/.codex/rules
 > $ ln -sfn ../.dotfiles/agents/.codex/hooks.mac.json    ~/.codex/hooks.json
+> $ ln -sfn ../../.dotfiles/agents/.pi/agent/mcp.mac.json ~/.pi/agent/mcp.json
 > ```
 
 3. Install Homebrew and packages.
