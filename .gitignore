@@ -21,3 +21,6 @@ zsh/.personal
 
 # iCloud-backed ssh configs (symlink, like ssh-configs above)
 ssh-configs2
+
+# Per-machine aliases (Mac-only gls override)
+zsh/.aliases.local
